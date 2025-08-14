@@ -1,78 +1,72 @@
-import { Instagram, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Mail, Phone } from "lucide-react";
+import Link from "next/link";
 import React from "react";
 
 function Footer() {
   return (
-    <footer className="w-full bg-[#f0f5ff] flex flex-col justify-center items-center">
+    <footer className="w-full bg-yellowMain flex flex-col justify-center items-center">
       <div className="flex flex-col lg:flex-row w-5/6 lg:justify-between justify-center items-center p-4 space-y-12 lg:space-y-0">
-        <div className="lg:w-1/3 w-full text-[#0A3C74] flex flex-col items-center justify-center">
-          <h4 className="font-spaceTransit text-5xl mb-3">HORAIRES</h4>
-          <ul className="flex items-center justify-between space-x-10">
-            <div className="flex flex-col items-center justify-center text-center">
-              <li className="font-bold text-lg">Juillet - Août</li>
-              <p>Lundi</p>
-              <p>
-                18:00 - 22:00
-              </p>
-              <p className="mt-2">Mardi - Samedi</p>
-              <p>
-                12:00 - 14:00 <br /> 18:00 - 22:00
-              </p>
-            </div>
-            <div className="flex flex-col items-center justify-center text-center">
-              <li className="font-bold text-lg">Septembre - Octobre</li>
-              <li className="font-bold text-lg">Mars - Juin</li>
-              <p>Mardi - Samedi</p>
-              <p>
-                12:00 - 14:00 <br /> 18:00 - 22:00
-              </p>
-            </div>
-          </ul>
+        <div className="lg:w-1/3 w-full text-darkColor flex flex-col items-center justify-center">
+          <h1 className="font-zillaSlabBold text-3xl">
+            brillez
+          </h1>
+          <h2 className="font-zillaSlabRegular text-xl">
+            "Tout le monde rêve de briller un jour"
+          </h2>
         </div>
 
-        <div className="lg:w-1/3 w-full text-[#0A3C74] flex flex-col items-center justify-center">
-          <h4 className="font-spaceTransit text-5xl mb-3">ADRESSE</h4>
-          <a
-            className="flex flex-col items-center justify-center text-center hover:underline"
-            href="https://www.google.com/maps/place/22+Rue+Trivalle,+11000+Carcassonne/@43.2092525,2.3586791,17z/data=!3m1!4b1!4m6!3m5!1s0x12ae2c3fe47df2d1:0xecd2d651ec878ced!8m2!3d43.2092525!4d2.361254!16s%2Fg%2F11bw40xyml?entry=ttu"
+        <div className="lg:w-1/3 w-full text-darkColor flex flex-col items-center justify-center">
+          <Link
+            href={"/"}
+            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
           >
-            22 rue Trivalle
-            <br />
-            11000, Carcassonne
-          </a>
+            home
+          </Link>
+          <Link
+            href={"/projets"}
+            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
+          >
+            projets
+          </Link>
+          <Link
+            href={"/services"}
+            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
+          >
+            services
+          </Link>
+          <Link
+            href={"/contact"}
+            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
+          >
+            contact
+          </Link>
         </div>
 
-        <div className="lg:w-1/3 w-full text-[#0A3C74] flex flex-col items-center justify-center">
-          <h4 className="font-spaceTransit text-5xl mb-3">CONTACT</h4>
-          <ul className="flex flex-col items-center justify-center">
-            <li className="flex gap-2 mb-3 hover:underline">
-              <Mail />
-              <a href="mailto:floridablanca22@gmail.com">
-                floridablanca22@gmail.com
-              </a>
+        <div className="lg:w-1/3 w-full text-darkColor flex flex-col items-center justify-center">
+          <h4 className="font-zillaSlabBold text-3xl mb-3">contact</h4>
+          <ul className="flex flex-row items-center justify-center gap-10">
+            <li className="">
+              <a href="mailto:brillez@gmail.com"><Mail /></a>
             </li>
-            <li className="flex gap-2 mb-3 hover:underline">
-              <Phone />
-              <a href="tel:+33430345855">04 30 34 58 55</a>
+            <li className="">
+              <a href="tel:+33"><Phone /></a>
             </li>
-            <li className="flex gap-2 mb-3 hover:underline">
-              <Instagram />
-              <a href="https://www.instagram.com/floridablanca_bar_a_poulpe/?hl=fr">@floridablanca_bar_a_poulpe</a>
+            <li className="">
+              <a href="https://www.instagram.com/brillezandco/?hl=fr"><Instagram /></a>
             </li>
-            <li className="flex gap-2 mb-3 hover:underline"></li>
+            <li className="">
+              <a href="https://www.facebook.com/brillezandco/?ref=_xav_ig_profile_page_web#"><Facebook /></a>
+            </li>
           </ul>
         </div>
 
-        <div className="w-40 flex items-center justify-center">
-          <img src="/logo-blue.webp" alt="logo de floridablanca" />
-        </div>
       </div>
 
       <a
-        href="https://www.cntl.digital/"
-        className="text-[#0A3C74] hover:underline py-2 text-xs w-full bg-[#e0ebff] flex justify-center items-center"
+        href="https://portfolio-pablo-teal.vercel.app/"
+        className="text-yellowMain hover:underline py-2 text-xs w-full bg-darkColor flex justify-center items-center"
       >
-        © This is a CNTL Digital creation - 2023
+        © This is a PABLO ORTEGA creation - 2025
       </a>
     </footer>
   );

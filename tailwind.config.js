@@ -43,6 +43,8 @@ module.exports = {
       },
       colors: {
         yellowMain: '#fcf6a8',
+        clearColor: '#FEFDEB',
+        darkColor: '#111009',
       },
       borderRadius: {
         lg: "var(--radius)",

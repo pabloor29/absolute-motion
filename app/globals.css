@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .bg-dots-yellowMain {
+    background-image: radial-gradient(circle, #fcf6a850 2px, transparent 3px);
+    background-size: 10px 10px;
+  }
+}
+
+@layer utilities {
+  .bg-dots-darkColor {
+    background-image: radial-gradient(circle, #11100920 2px, transparent 3px);
+    background-size: 10px 10px;
+  }
+}
+
+
 @font-face {
   font-family: 'ZillaSlabRegular';
   src: url('../public/fonts/Zilla_Slab/ZillaSlab-Regular.ttf') format('truetype');

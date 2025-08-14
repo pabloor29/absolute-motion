@@ -137,12 +137,17 @@ function HeroBanner() {
       <div className="h-screen bg-yellowMain">
         <canvas
           ref={canvasRef}
-          className="fixed top-0 left-0 pointer-events-none"
+          className="absolute pointer-events-none"
           style={{ zIndex: 50 }}
         />
-        <h1 className="relative z-10 font-zillaSlabBold text-6xl flex justify-center items-center h-full">
-          {words[currentWordIndex]}
-        </h1>
+        <div className="relative z-10 flex flex-col justify-center items-center h-full">
+          <h1 className="text-4xl md:text-6xl font-zillaSlabBold">
+            {words[currentWordIndex]}
+          </h1>
+          <h2 className="text-xl md:text-3xl font-zillaSlabRegular">
+            "Tout le monde rêve de briller un jour"
+          </h2>
+        </div>
       </div>
 
       <div

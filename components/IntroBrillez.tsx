@@ -20,22 +20,22 @@ function IntroBrillez() {
 
   return (
     <section
-      className="relative px-8 flex flex-col md:flex-row items-center max-w-6xl mx-auto z-5"
+      className="relative px-8 flex flex-col md:flex-row items-center max-w-6xl mx-auto z-5 bg-clearColor"
       style={{
         transform: `translateY(${offsetY * parallaxFactor - 150}px)`,
         transition: "transform 0.1s ease-out",
       }}
     >
       <img
-        src="/img/photo-intro.jpg" // remplace par ton image
+        src="/img/deco/face-brillez.jpg" // remplace par ton image
         alt="Présentation Brillez"
         className="w-64 h-64 object-cover rounded-lg shadow-lg mb-8 md:mb-0 md:mr-12"
       />
       <div className="pb-10 md:pb-0">
-        <h2 className="text-4xl font-zillaSlabBold mb-4 text-gray-800">
+        <h2 className="text-4xl font-zillaSlabBold mb-4 text-darkColor">
             Découvrez Brillez
         </h2>
-        <p className="text-lg text-gray-600 max-w-xl leading-relaxed">
+        <p className="text-lg text-darkColor max-w-xl leading-relaxed">
           Brillez est votre agence de communication dédiée à faire rayonner
           votre marque à travers des stratégies créatives et innovantes. Nous
           transformons vos idées en expériences captivantes qui connectent

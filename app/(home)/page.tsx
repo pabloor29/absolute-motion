@@ -3,16 +3,16 @@ import Footer from "../../components/Footer";
 import HeroBanner from "../../components/HeroBanner";
 import Navbar from "../../components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
-import IntroBrillezProjects from "@/components/IntroProjects";
+import HistoryBrillez from "@/components/HistoryBrillez";
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center">
+    <main className="flex flex-col items-center bg-clearColor">
       <Navbar />
       <HeroBanner />
       <IntroBrillez />
-      <IntroBrillezProjects />
-      {/* <Footer /> */}
+      <HistoryBrillez />
+      <Footer />
       <Analytics />
     </main>
   );
