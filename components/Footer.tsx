@@ -10,7 +10,7 @@ function Footer() {
           <h1 className="font-zillaSlabBold text-3xl">
             brillez
           </h1>
-          <h2 className="font-zillaSlabRegular text-xl">
+          <h2 className="font-zillaSlabRegular text-xl text-center">
             "Tout le monde rêve de briller un jour"
           </h2>
         </div>
@@ -20,7 +20,7 @@ function Footer() {
             href={"/"}
             className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
           >
-            home
+            accueil
           </Link>
           <Link
             href={"/projets"}

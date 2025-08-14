@@ -138,7 +138,7 @@ function HeroBanner() {
         <canvas
           ref={canvasRef}
           className="absolute pointer-events-none"
-          style={{ zIndex: 50 }}
+          style={{ zIndex: 40 }}
         />
         <div className="relative z-10 flex flex-col justify-center items-center h-full">
           <h1 className="text-4xl md:text-6xl font-zillaSlabBold">
@@ -147,6 +147,9 @@ function HeroBanner() {
           <h2 className="text-xl md:text-3xl font-zillaSlabRegular">
             "Tout le monde rêve de briller un jour"
           </h2>
+          <div className="z-50 mt-10 bg-darkColor rounded-2xl py-3 px-6 text-xl font-zillaSlabBold text-yellowMain hover:bg-yellowMain duration-100 cursor-pointer hover:border border-darkColor hover:text-darkColor text-center">
+            <a href="/contact">un projet en tête ? contactez nous !</a>
+          </div>
         </div>
       </div>
 
