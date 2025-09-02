@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "brillez",
   description: "Tout le monde rêve de briller un jour",
-  icons: "",
+  icons: "/img/logo/LOGO-brillez.png",
 };
 
 export default function RootLayout({
@@ -32,7 +32,7 @@ export default function RootLayout({
         <meta property="og:image" content="" />
         <meta property="og:url" content="https://www.brillez.com/" />
         <meta charSet="utf-8"></meta>
-        <link rel="icon" href=""></link>
+        <link rel="icon" href="/img/logo/LOGO-brillez.png"></link>
       </Head>
       <body className={inter.className}>
         {children}

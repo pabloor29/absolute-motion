@@ -2,37 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <!-- Page d'accueil -->
   <url>
-    <loc>https://www.floridablanca.fr/</loc>
-    <lastmod>2025-03-31</lastmod>
+    <loc>https://www.absolute-motion.fr/</loc>
+    <lastmod>2025-10-08</lastmod>
     <priority>1.00</priority>
   </url>
 
-  <!-- Page à propos -->
+  <!-- Page projets -->
   <url>
-    <loc>https://www.floridablanca.fr/apropos</loc>
-    <lastmod>2025-03-31</lastmod>
-    <priority>0.80</priority>
+    <loc>https://www.absolute-motion.fr/projets</loc>
+    <lastmod>2025-10-08</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Page services -->
+  <url>
+    <loc>https://www.absolute-motion.fr/services</loc>
+    <lastmod>2025-10-08</lastmod>
+    <priority>0.8</priority>
   </url>
 
   <!-- Page contact -->
   <url>
-    <loc>https://www.floridablanca.fr/contact</loc>
-    <lastmod>2025-03-31</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- Page de menu (si c'est un site de restaurant) -->
-  <url>
-    <loc>https://www.floridablanca.fr/menu</loc>
-    <lastmod>2025-03-31</lastmod>
-    <priority>0.80</priority>
-  </url>
-
-  <!-- Page de réservation (si applicable) -->
-  <url>
-    <loc>https://www.floridablanca.fr/reservation</loc>
-    <lastmod>2025-03-31</lastmod>
-    <priority>0.80</priority>
+    <loc>https://www.absolute-motion.fr/contact</loc>
+    <lastmod>2025-10-08</lastmod>
+    <priority>0.8</priority>
   </url>
 
   <!-- Autres pages importantes -->

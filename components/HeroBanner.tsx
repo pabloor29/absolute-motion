@@ -3,10 +3,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const words = [
-  "brillez",
-  "rêvez",
-  "communiquez",
-  "inspirez",
+  "Équilibre",
+  "Force",
+  "Endurance",
 ];
 
 function HeroBanner() {

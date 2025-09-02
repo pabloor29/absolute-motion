@@ -33,14 +33,14 @@ function IntroBrillez() {
       />
       <div className="pb-10 md:pb-0">
         <h2 className="text-4xl font-zillaSlabBold mb-4 text-darkColor">
-            Découvrez Brillez
+            Découvrez brillez
         </h2>
-        <p className="text-lg text-darkColor max-w-xl leading-relaxed">
+        <article className="text-lg text-darkColor max-w-xl leading-relaxed">
           Brillez est votre agence de communication dédiée à faire rayonner
           votre marque à travers des stratégies créatives et innovantes. Nous
           transformons vos idées en expériences captivantes qui connectent
           votre audience et renforcent votre impact.
-        </p>
+        </article>
       </div>
     </section>
   );
