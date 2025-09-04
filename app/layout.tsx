@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "absolute motion",
-  description: "Personal Trainer",
-  icons: "/img/logo/LOGO-brillez.png",
+  description: "Je suis Arnaud, Personal Trainer passionné par le sport et ses valeurs. Grâce à mon expérience et une approche personnalisée, je vous accompagne vers vos objectifs. Que ce soit pour vous remettre en forme, pour gagner en Force, améliorer votre Endurance, je vous accompagne vers votre Équilibre!",
+  icons: "/img/logo/logo.jpg",
 };
 
 export default function RootLayout({
