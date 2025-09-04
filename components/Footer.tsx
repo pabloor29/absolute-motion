@@ -4,58 +4,52 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="w-full bg-yellowMain flex flex-col justify-center items-center">
+    <footer className="w-full bg-darkColor flex flex-col justify-center items-center">
       <div className="flex flex-col lg:flex-row w-5/6 lg:justify-between justify-center items-center p-4 space-y-12 lg:space-y-0">
-        <div className="lg:w-1/3 w-full text-darkColor flex flex-col items-center justify-center">
-          <h1 className="font-zillaSlabBold text-3xl">
-            brillez
+        <div className="lg:w-1/3 w-full text-clearColor flex flex-col items-center justify-center">
+          <h1 className="font-calSans text-3xl">
+            absolute motion
           </h1>
-          <h2 className="font-zillaSlabRegular text-xl text-center">
-            "Tout le monde rêve de briller un jour"
+          <h2 className="font-rajdhaniRegular text-xl text-center">
+            Personal trainer | Small groups trainer
           </h2>
         </div>
 
-        <div className="lg:w-1/3 w-full text-darkColor flex flex-col items-center justify-center">
+        <div className="lg:w-1/3 w-full text-clearColor flex flex-col items-center justify-center">
           <Link
             href={"/"}
-            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
+            className="font-calSans hover:ml-6 text-xl"
           >
             accueil
           </Link>
           <Link
-            href={"/projets"}
-            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
-          >
-            projets
-          </Link>
-          <Link
             href={"/services"}
-            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
+            className="font-calSans hover:ml-6 text-xl"
           >
             services
           </Link>
           <Link
             href={"/contact"}
-            className="font-zillaSlabRegular hover:font-zillaSlabBold hover:ml-6 text-xl"
+            className="font-calSans hover:ml-6 text-xl"
           >
             contact
           </Link>
         </div>
 
-        <div className="lg:w-1/3 w-full text-darkColor flex flex-col items-center justify-center">
-          <h4 className="font-zillaSlabBold text-3xl mb-3">contact</h4>
+        <div className="lg:w-1/3 w-full text-clearColor flex flex-col items-center justify-center">
+          <h4 className="font-calSans text-3xl mb-3">contact</h4>
           <ul className="flex flex-row items-center justify-center gap-10">
             <li className="">
-              <a href="mailto:brillez@gmail.com"><Mail /></a>
+              <a href="mailto:absolute-motion@gmail.com"><Mail /></a>
             </li>
             <li className="">
               <a href="tel:+33"><Phone /></a>
             </li>
             <li className="">
-              <a href="https://www.instagram.com/brillezandco/?hl=fr"><Instagram /></a>
+              <a href="https://www.instagram.com/absolutemotionx/"><Instagram /></a>
             </li>
             <li className="">
-              <a href="https://www.facebook.com/brillezandco/?ref=_xav_ig_profile_page_web#"><Facebook /></a>
+              <a href=""><Facebook /></a>
             </li>
           </ul>
         </div>
@@ -64,7 +58,7 @@ function Footer() {
 
       <a
         href="https://portfolio-pablo-teal.vercel.app/"
-        className="text-yellowMain hover:underline py-2 text-xs w-full bg-darkColor flex justify-center items-center"
+        className="text-darkColor hover:underline py-2 text-xs w-full bg-mainColor flex justify-center items-center"
       >
         © This is a PABLO ORTEGA creation - 2025
       </a>

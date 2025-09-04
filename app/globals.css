@@ -2,32 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer utilities {
-  .bg-dots-yellowMain {
-    background-image: radial-gradient(circle, #fcf6a850 2px, transparent 3px);
-    background-size: 10px 10px;
-  }
-}
-
-@layer utilities {
-  .bg-dots-darkColor {
-    background-image: radial-gradient(circle, #11100920 2px, transparent 3px);
-    background-size: 10px 10px;
-  }
-}
-
-
 @font-face {
-  font-family: 'ZillaSlabRegular';
-  src: url('../public/fonts/Zilla_Slab/ZillaSlab-Regular.ttf') format('truetype');
+  font-family: 'CalSans';
+  src: url('../public/fonts/Cal_Sans/CalSans-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-  font-family: 'ZillaSlabBold';
-  src: url('../public/fonts/Zilla_Slab/ZillaSlab-Bold.ttf') format('truetype');
+  font-family: 'RajdhaniRegular';
+  src: url('../public/fonts/Rajdhani/Rajdhani-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

@@ -8,8 +8,8 @@ import { Analytics } from "@vercel/analytics/react"
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "brillez",
-  description: "Tout le monde rêve de briller un jour",
+  title: "absolute motion",
+  description: "Personal Trainer",
   icons: "/img/logo/LOGO-brillez.png",
 };
 
@@ -26,13 +26,13 @@ export default function RootLayout({
           name="viewport"
           content="width=device-width, initial-scale=1"
         ></meta>
-        <meta name="keywords" content="brillez, communication, photo, photgraphie, agence, com" />
-        <meta name="description" content="Tout le monde rêve de briller un jour" />
-        <meta property="og:title" content="brillez" />
+        <meta name="keywords" content="Personal Trainer, Trainer, SmallGroup Trainer, SmallGroup, Équilibre, Force, Endurance " />
+        <meta name="description" content="Personal Trainer" />
+        <meta property="og:title" content="absolute motion" />
         <meta property="og:image" content="" />
-        <meta property="og:url" content="https://www.brillez.com/" />
+        <meta property="og:url" content="https://www.absolute-motion.fr/" />
         <meta charSet="utf-8"></meta>
-        <link rel="icon" href="/img/logo/LOGO-brillez.png"></link>
+        <link rel="icon" href="/img/logo/logo-rbg.png"></link>
       </Head>
       <body className={inter.className}>
         {children}

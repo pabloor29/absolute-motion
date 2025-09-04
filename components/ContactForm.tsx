@@ -64,26 +64,21 @@ const ReservationForm = () => {
           </p>
         </div>
       ) : (
-        <div className="flex flex-col justify-center items-center h-screen bg-yellowMain">
+        <div className="flex flex-col justify-center items-center h-screen bg-mainColor">
           <form
             ref={formRef}
             onSubmit={sendEmail}
             //onSubmit={handleSubmit}
             className="space-y-8 lg:w-1/3 w-5/6 z-20"
           >
-            <input type="hidden" name="company" value="brillez" />
-            <input type="hidden" name="emailCompany" value="brillez@gmail.com" />
-            <div className="flex items-center justify-between lg:flex-row flex-col-reverse">
-              <h3 className="text-darkColor text-4xl font-zillaSlabBold leading-none">
-                une envie de briller ?
-              </h3>
-            </div>
+            <input type="hidden" name="company" value="absolute motion" />
+            <input type="hidden" name="emailCompany" value="absolute-motion@gmail.com" />
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-lg font-medium text-darkColor font-zillaSlabRegular text-2xl tracking-wide"
+                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
-                nom complet
+                Nom complet
               </label>
               <input
                 type="text"
@@ -91,7 +86,7 @@ const ReservationForm = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-transparent bg-dots-darkColor font-zillaSlabBold text-xl"
+                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
                 required
               />
             </div>
@@ -99,9 +94,9 @@ const ReservationForm = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-lg font-medium text-darkColor font-zillaSlabRegular text-2xl tracking-wide"
+                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
-                email
+                Email
               </label>
               <input
                 type="email"
@@ -109,7 +104,7 @@ const ReservationForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-transparent bg-dots-darkColor font-zillaSlabBold text-xl"
+                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
                 required
               />
             </div>
@@ -117,25 +112,25 @@ const ReservationForm = () => {
             <div>
               <label
                 htmlFor="subject"
-                className="block text-lg font-medium text-darkColor font-zillaSlabRegular text-2xl tracking-wide"
+                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
-                objet
+                Objet
               </label>
               <input
                 id="subject"
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-transparent bg-dots-darkColor font-zillaSlabBold text-xl"
+                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
               />
             </div>
 
             <div>
               <label
                 htmlFor="message"
-                className="block text-lg font-medium text-darkColor font-zillaSlabRegular text-2xl tracking-wide"
+                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
-                message
+                Message
               </label>
               <textarea
                 id="message"
@@ -143,31 +138,17 @@ const ReservationForm = () => {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-transparent bg-dots-darkColor font-zillaSlabBold text-xl"
+                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-darkColor rounded-2xl py-3 text-xl font-zillaSlabBold text-yellowMain hover:bg-yellowMain duration-100 cursor-pointer hover:border border-darkColor hover:text-darkColor"
+              className="w-full bg-darkColor rounded-2xl py-3 text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor"
             >
-              envoyer
+              Envoyer
             </button>
           </form>
-
-          <div className="lg:w-1/3 w-5/6 z-30">
-            <img
-              src="/IMG_0228.webp"
-              alt=""
-              className="shadow-[25px_15px_0_0_#002E6D] z-30"
-            />
-          </div>
-
-          <img
-            src="/top-octopus.webp"
-            alt=""
-            className="absolute opacity-5 z-0 scale-150 top-20 lg:top-44 left-0 overflow-x-hidden"
-          />
         </div>
       )}
     </>
