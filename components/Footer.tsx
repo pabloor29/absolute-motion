@@ -29,6 +29,12 @@ function Footer() {
             services
           </Link>
           <Link
+            href={"/tarifs"}
+            className="font-calSans hover:ml-6 text-xl"
+          >
+            tarifs
+          </Link>
+          <Link
             href={"/contact"}
             className="font-calSans hover:ml-6 text-xl"
           >
@@ -38,22 +44,33 @@ function Footer() {
 
         <div className="lg:w-1/3 w-full text-clearColor flex flex-col items-center justify-center">
           <h4 className="font-calSans text-3xl mb-3">contact</h4>
+          <a 
+            className="font-rajdhaniRegular mb-2 text-xl hover:underline"
+            href="https://www.google.fr/maps/place/Fribourg,+Suisse/@46.8032463,7.1392126,5115m/data=!3m2!1e3!4b1!4m6!3m5!1s0x478e6ecd8d5a7d2f:0xbbe5d1f6b937c32e!8m2!3d46.8064773!4d7.1619719!16zL20vMDE1dHJi?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
+          >
+            📍 Fribourg, Suisse 🇨🇭
+            </a>
           <ul className="flex flex-row items-center justify-center gap-10">
             <li className="">
-              <a href="mailto:absolute-motion@gmail.com"><Mail /></a>
+              <a href="mailto:absolute.motion@icloud.com"><Mail /></a>
             </li>
             <li className="">
-              <a href="tel:+33"><Phone /></a>
+              <a href="tel:+41782145057"><Phone /></a>
             </li>
             <li className="">
               <a href="https://www.instagram.com/absolutemotionx/"><Instagram /></a>
             </li>
-            <li className="">
-              <a href=""><Facebook /></a>
-            </li>
           </ul>
         </div>
 
+      </div>
+
+      <div className="py-8 w-full bg-darkColor flex items-center justify-center">
+        <img
+          className=""
+          src="/img/logo/icon-white.webp" 
+          alt="" 
+        />
       </div>
 
       <a

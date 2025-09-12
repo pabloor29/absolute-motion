@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "absolute motion",
   description: "Je suis Arnaud, Personal Trainer passionné par le sport et ses valeurs. Grâce à mon expérience et une approche personnalisée, je vous accompagne vers vos objectifs. Que ce soit pour vous remettre en forme, pour gagner en Force, améliorer votre Endurance, je vous accompagne vers votre Équilibre!",
-  icons: "/img/logo/logo.jpg",
+  icons: "/img/logo/logo.webp",
 };
 
 export default function RootLayout({
@@ -30,9 +30,9 @@ export default function RootLayout({
         <meta name="description" content="Personal Trainer" />
         <meta property="og:title" content="absolute motion" />
         <meta property="og:image" content="" />
-        <meta property="og:url" content="https://www.absolute-motion.fr/" />
+        <meta property="og:url" content="https://absolute-motion.vercel.app/" />
         <meta charSet="utf-8"></meta>
-        <link rel="icon" href="/img/logo/logo-rbg.png"></link>
+        <link rel="icon" href="/img/logo/logo.webp"></link>
       </Head>
       <body className={inter.className}>
         {children}

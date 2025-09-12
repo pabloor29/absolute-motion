@@ -14,15 +14,19 @@ import { Variants, motion } from "framer-motion";
 
 const links = [
   {
-    label: "Accueil",
+    label: "accueil",
     href: "/",
   },
   {
-    label: "Services",
+    label: "services",
     href: "/services",
   },
   {
-    label: "Contact",
+    label: "tarifs",
+    href: "/tarifs",
+  },
+  {
+    label: "contact",
     href: "/contact",
   },
 ];
@@ -56,7 +60,7 @@ function Navbar() {
         <a href="/" className="">
           <img 
             className="h-20"
-            src="/img/logo/logo-rbg.png"
+            src="/img/logo/logo.webp"
             alt="logo absolute motion"
           />
         </a>

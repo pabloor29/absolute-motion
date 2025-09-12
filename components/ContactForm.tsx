@@ -43,7 +43,7 @@ const ReservationForm = () => {
     const formElement = formRef.current;
 
     Promise.all([
-        emailjs.sendForm("service_brillez", "template_001", formElement, "secret-key")
+        emailjs.sendForm("service_absolute_motion", "template_001", formElement, "secret-key")
     ])
     .then(() => {
         formRef.current?.reset();
@@ -72,11 +72,11 @@ const ReservationForm = () => {
             className="space-y-8 lg:w-1/3 w-5/6 z-20"
           >
             <input type="hidden" name="company" value="absolute motion" />
-            <input type="hidden" name="emailCompany" value="absolute-motion@gmail.com" />
+            <input type="hidden" name="emailCompany" value="absolute.motion@icloud.com" />
             <div>
               <label
                 htmlFor="fullName"
-                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
+                className="block md:text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
                 Nom complet
               </label>
@@ -86,7 +86,7 @@ const ReservationForm = () => {
                 name="fullName"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
+                className="w-full rounded-xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
                 required
               />
             </div>
@@ -94,7 +94,7 @@ const ReservationForm = () => {
             <div>
               <label
                 htmlFor="email"
-                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
+                className="block md:text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
                 Email
               </label>
@@ -104,7 +104,7 @@ const ReservationForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
+                className="w-full rounded-xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
                 required
               />
             </div>
@@ -112,7 +112,7 @@ const ReservationForm = () => {
             <div>
               <label
                 htmlFor="subject"
-                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
+                className="block md:text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
                 Objet
               </label>
@@ -121,14 +121,14 @@ const ReservationForm = () => {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
+                className="w-full rounded-xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
               />
             </div>
 
             <div>
               <label
                 htmlFor="message"
-                className="block text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
+                className="block md:text-lg font-medium text-clearColor font-calSans text-2xl tracking-wide ml-2"
               >
                 Message
               </label>
@@ -138,13 +138,13 @@ const ReservationForm = () => {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full rounded-2xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
+                className="w-full rounded-xl pl-4 py-2 bg-clearColor text-darkColor font-rajdhaniRegular text-xl"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-darkColor rounded-2xl py-3 text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor"
+              className="w-full bg-darkColor rounded-xl py-3 text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor"
             >
               Envoyer
             </button>

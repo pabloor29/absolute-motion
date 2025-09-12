@@ -8,7 +8,7 @@ function Services() {
   return (
     <>
       <Navbar />
-      <CustomHeroBannerImage title="Mes services" img="/img/bg/bg-coach.webp" />
+      <CustomHeroBannerImage title="Services" img="/img/bg/bg-equilibre.webp" />
 
       <div className="bg-mainColor py-20 flex flex-col justify-center items-center">
 
@@ -25,19 +25,7 @@ function Services() {
         </div>
 
         <div className="w-3/4 md:w-1/2">
-          <div className="">
-            <ServiceCard
-              emoji="🍎"
-              title="Conseil nutritionnel"
-              description="Un suivi alimentaire adapté à vos objectifs : perte de poids, équilibre de vie, prise de masse."
-            />
-          </div>
-        </div>
-
-        <div className="w-1/2 h-0 md:h-1 bg-darkColor my-10 rounded-full"></div>
-
-        <div className="w-3/4 md:w-1/2">
-          <div className="mb-3">
+          <div className="mb-3 w-full">
             <ServiceCard
               emoji="🏋️"
               title="Coaching personnel"
@@ -51,28 +39,18 @@ function Services() {
               description="Des séances motivantes à plusieurs, pour progresser ensemble tout en bénéficiant d’un encadrement professionnel. Parfait pour garder la motivation et partager l’effort."
             />
           </div>
-        </div>
-
-        <div className="w-1/2 h-0 md:h-1 bg-darkColor my-10 rounded-full"></div>
-
-        <div className="w-3/4 md:w-1/2">
           <div className="mb-3">
             <ServiceCard
-              emoji="🤸"
-              title="Multi-sports"
-              description="Du fitness au running, en passant par la musculation et les sports de plein air."
+              emoji="🍎"
+              title="Conseil nutritionnel"
+              description="Un suivi alimentaire adapté à vos objectifs : perte de poids, équilibre de vie, prise de masse."
             />
           </div>
-        </div>
-
-        <div className="w-1/2 h-0 md:h-1 bg-darkColor my-10 rounded-full"></div>
-
-        <div className="w-3/4 md:w-1/2">
           <div className="mb-3">
             <ServiceCard
-              emoji="🩺"
-              title="Rééducation"
-              description="Un accompagnement progressif après blessure ou opération, en lien avec vos professionnels de santé."
+              emoji="🧘‍♂️"
+              title="Préparation mentale"
+              description="Optimisez vos performances sportives grâce à un accompagnement mental : gestion du stress en compétition, concentration et motivation."
             />
           </div>
           <div className="mb-3">

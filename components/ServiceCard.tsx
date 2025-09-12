@@ -16,7 +16,7 @@ export default function ServiceCard({ emoji, title, description }: ServiceCardPr
     <div className="w-full">
         {isOpen ? (
             <div
-                className="flex items-center justify-between p-2 bg-darkColor/70 rounded-t-2xl cursor-pointer md:w-min"
+                className="flex items-center justify-between p-2 bg-darkColor/70 rounded-t-2xl cursor-pointer md:w-full"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center gap-3">
@@ -27,7 +27,7 @@ export default function ServiceCard({ emoji, title, description }: ServiceCardPr
             </div>
         ) : (
             <div
-                className="flex items-center justify-between p-2 bg-darkColor rounded-t-2xl cursor-pointer md:w-min"
+                className="flex items-center justify-between p-2 bg-darkColor rounded-t-2xl cursor-pointer md:w-full"
                 onClick={() => setIsOpen(!isOpen)}
             >
                 <div className="flex items-center gap-3">
