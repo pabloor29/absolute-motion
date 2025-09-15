@@ -27,6 +27,7 @@ module.exports = {
     fontFamily: {
       calSans: ["CalSans", "ui-serif"],
       rajdhaniRegular: ["RajdhaniRegular", "ui-serif"],
+      leagueSpartan: ["LeagueSpartan", "ui-serif"],
     },
     container: {
       center: true,

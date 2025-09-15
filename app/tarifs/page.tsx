@@ -8,7 +8,7 @@ function Tarifs() {
   return (
     <>
       <Navbar />
-      <CustomHeroBannerImage title="Tarifs" img="/img/bg/bg-force.webp" />
+      <CustomHeroBannerImage title="Tarifs." img="/img/bg/bg-force.webp" />
       
       <div className="bg-mainColor flex flex-col justify-center items-center w-screen py-20 gap-10">
 

@@ -17,3 +17,11 @@
     font-style: normal;
     font-display: swap;
 }
+
+@font-face {
+  font-family: 'LeagueSpartan';
+  src: url('../public/fonts/League_Spartan/LeagueSpartan-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}

@@ -8,7 +8,7 @@ function Services() {
   return (
     <>
       <Navbar />
-      <CustomHeroBannerImage title="Services" img="/img/bg/bg-equilibre.webp" />
+      <CustomHeroBannerImage title="Services." img="/img/bg/bg-equilibre.webp" />
 
       <div className="bg-mainColor py-20 flex flex-col justify-center items-center">
 

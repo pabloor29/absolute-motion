@@ -33,7 +33,7 @@ function CustomHeroBannerImage(props: any) {
           whileInView="visible"
           viewport={{ once: true }}
           variants={textVariants}
-          className="text-5xl lg:text-9xl text-clearColor font-calSans z-40"
+          className="text-5xl lg:text-9xl text-clearColor font-leagueSpartan font-bold z-40"
         >
           {props.title}
         </motion.h1>

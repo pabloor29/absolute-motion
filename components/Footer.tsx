@@ -54,9 +54,9 @@ function Footer() {
             <li className="">
               <a href="mailto:absolute.motion@icloud.com"><Mail /></a>
             </li>
-            <li className="">
+            {/* <li className="">
               <a href="tel:+41782145057"><Phone /></a>
-            </li>
+            </li> */}
             <li className="">
               <a href="https://www.instagram.com/absolutemotionx/"><Instagram /></a>
             </li>

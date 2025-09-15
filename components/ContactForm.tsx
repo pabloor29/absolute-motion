@@ -43,7 +43,7 @@ const ReservationForm = () => {
     const formElement = formRef.current;
 
     Promise.all([
-        emailjs.sendForm("service_absolute_motion", "template_001", formElement, "secret-key")
+        emailjs.sendForm("service_absolute_motion", "template_001", formElement, "VzCUw7Umfv7hVyLId")
     ])
     .then(() => {
         formRef.current?.reset();
@@ -59,7 +59,7 @@ const ReservationForm = () => {
       {succeeded ? (
         <div className="flex flex-col lg:flex-row w-full h-screen justify-center items-center lg:space-x-3 text-darkColor">
           <BadgeCheck />
-          <p className="text-xl italic text-center">
+          <p className="text-xl font-rajdhaniRegular text-center">
             Votre message à bien été envoyé !
           </p>
         </div>
