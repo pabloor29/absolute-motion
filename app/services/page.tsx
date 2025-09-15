@@ -43,7 +43,7 @@ function Services() {
             <ServiceCard
               emoji="🍎"
               title="Conseil nutritionnel"
-              description="Un suivi alimentaire adapté à vos objectifs : perte de poids, équilibre de vie, prise de masse."
+              description="Des conseils nutritionnels adaptés à vos objectifs : perte de poids, équilibre de vie, prise de masse."
             />
           </div>
           <div className="mb-3">
