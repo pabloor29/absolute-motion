@@ -43,7 +43,7 @@ function HeroBanner() {
           </h1>
           <article className="bg-clearColor/30 p-2 rounded-xl w-min whitespace-nowrap">
             <p className="font-calSans text-3xl md:text-4xl lg:text-5xl text-center text-darkColor">
-              Personal trainer
+              PERSONAL TRAINER
             </p>
             <p className="font-rajdhaniRegular text-center text-xl md:text-2xl lg:text-2xl">
               📍 Fribourg, Suisse 🇨🇭
