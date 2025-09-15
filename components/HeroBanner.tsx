@@ -29,7 +29,7 @@ function HeroBanner() {
 
   return (
     <div className="w-full z-10">
-      <div className="h-screen w-full bg-mainColor">
+      <div className="h-screen w-full bg-mainColor flex flex-col justify-center items-center">
         <div className="absolute">
           <img
             className="w-screen h-screen object-cover overflow-hidden"
@@ -37,10 +37,12 @@ function HeroBanner() {
             alt="Theme background" 
           />
         </div>
-        <div className="relative z-10 flex flex-col justify-center items-center h-full">
+        <div className="z-10 ">
           <h1 className="text-6xl md:text-8xl font-leagueSpartan font-bold text-clearColor my-8 text-center">
             {words[currentWordIndex]}
           </h1>
+        </div>
+        <div className="absolute flex flex-col justify-center items-end h-full w-min translate-y-36 md:translate-y-44">
           <article className="bg-clearColor/30 p-2 rounded-xl w-min whitespace-nowrap">
             <p className="font-calSans text-3xl md:text-4xl lg:text-5xl text-center text-darkColor">
               PERSONAL TRAINER
@@ -48,20 +50,20 @@ function HeroBanner() {
             <p className="font-rajdhaniRegular text-center text-xl md:text-2xl lg:text-2xl">
               📍 Fribourg, Suisse 🇨🇭
             </p>
-            <div className="py-2 flex flex-col justify-center items-center bg-mainColor/50 rounded-xl p-2 mt-4">
-              <div className="flex flex-row justify-center items-center gap-2">
-                <BadgeCheck />
-                <p className="font-rajdhaniRegular text-center text-2xl md:text-3xl lg:text-4xl">
-                  Certifié QUALITOP
-                </p>
-              </div>
+          </article>
+          <div className="py-2 flex flex-row justify-end items-end mt-2 w-2/3 md:w-1/2">
+            <div className="bg-mainColor/70 rounded-xl p-2 flex flex-row justify-center items-center gap-2">
+              <BadgeCheck size={18} color="white" />
+              <p className="font-rajdhaniRegular text-clearColor font-bold text-center text-xl md:text-xl">
+                Certifié
+              </p>
               <img
-                className="object-cover overflow-hidden w-3/4"
-                src="/img/logo/Logo_Qualitop.webp"
+                className="object-cover overflow-hidden w-1/2 md:w-1/3"
+                src="/img/logo/qualitop-logo-2.jpg"
                 alt="Theme background" 
               />
             </div>
-          </article>
+          </div>
           {/* <div className="z-50 bg-darkColor rounded-2xl py-3 px-6 text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor text-center">
             <a href="/contact">Besoin d'un coach ? contactez moi !</a>
           </div> */}
