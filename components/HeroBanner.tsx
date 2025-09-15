@@ -56,7 +56,7 @@ function HeroBanner() {
                 </p>
               </div>
               <img
-                className="object-cover overflow-hidden w-full"
+                className="object-cover overflow-hidden w-3/4"
                 src="/img/logo/Logo_Qualitop.webp"
                 alt="Theme background" 
               />
