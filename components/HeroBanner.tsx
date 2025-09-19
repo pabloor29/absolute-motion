@@ -52,17 +52,19 @@ function HeroBanner() {
             </p>
           </article>
           <div className="py-2 flex flex-row justify-end items-end mt-2 w-2/3 md:w-1/2">
-            <div className="bg-mainColor/70 rounded-xl p-2 flex flex-row justify-center items-center gap-2">
-              <BadgeCheck size={18} color="white" />
-              <p className="font-rajdhaniRegular text-clearColor font-bold text-center text-xl md:text-xl">
-                Certifié
-              </p>
-              <img
-                className="object-cover overflow-hidden w-1/2 md:w-1/3"
-                src="/img/logo/qualitop-logo-2.jpg"
-                alt="Theme background" 
-              />
-            </div>
+            <a href="https://qualitop.ch/absolute-motion-qualitop-certified/">
+              <div className="bg-mainColor/70 rounded-xl p-2 flex flex-row justify-center items-center gap-2">
+                <BadgeCheck size={18} color="white" />
+                <p className="font-rajdhaniRegular text-clearColor font-bold text-center text-xl md:text-xl">
+                  Certifié
+                </p>
+                <img
+                  className="object-cover overflow-hidden w-1/2 md:w-1/3"
+                  src="/img/logo/qualitop-logo-2.jpg"
+                  alt="Theme background" 
+                />
+              </div>
+            </a>
           </div>
           {/* <div className="z-50 bg-darkColor rounded-2xl py-3 px-6 text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor text-center">
             <a href="/contact">Besoin d'un coach ? contactez moi !</a>

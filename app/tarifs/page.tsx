@@ -14,9 +14,9 @@ function Tarifs() {
 
         <div className="flex flex-col md:flex-row justify-center items-center w-full">
           <FormuleCard
-            name="formule personalisable"
+            name="formule personnalisable"
             price="de 70.- à 150.- CHF"
-            description="Une formule personalisable en fonction de vos besoins."
+            description="Une formule personnalisable en fonction de vos besoins."
             items={[
               "Méthode de coaching", 
               "Volume d'entrainement", 
@@ -27,7 +27,7 @@ function Tarifs() {
 
         <div className="w-3/4 flex flex-col justify-center items-center">
           <article className="text-center font-rajdhaniRegular text-clearColor text-xl">
-            Les formules sont 100% personalisables en fonctions des services proposés, du volume d'entrainement, du niveau souhaité...
+            Les formules sont 100% personnalisables en fonction des services proposés, du volume d'entrainement, du niveau souhaité...
             <br />
             Pour établir un plan optimal et choisir une formule adaptée, contactez-moi !
           </article>
