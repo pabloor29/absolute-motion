@@ -2,7 +2,29 @@ import CustomHeroBannerImage from '@/components/CustomHeroBannerImage'
 import Footer from '@/components/Footer'
 import Navbar from '@/components/Navbar'
 import ServiceCard from '@/components/ServiceCard'
+import type { Metadata } from 'next'
 import React from 'react'
+
+export const metadata: Metadata = {
+  title: 'Services — Coaching personnel, petit groupe & nutrition',
+  description:
+    "Coaching personnel, coaching en petit groupe, conseil nutritionnel, préparation mentale, remise en forme et maintien en forme seniors à Fribourg avec Absolute Motion.",
+  keywords: [
+    'coaching personnel Fribourg',
+    'coaching petit groupe',
+    'conseil nutritionnel',
+    'préparation mentale sportive',
+    'remise en forme',
+    'maintien en forme seniors',
+  ],
+  alternates: { canonical: '/services' },
+  openGraph: {
+    title: 'Services — Absolute Motion',
+    description:
+      "Coaching personnel, petit groupe, nutrition, préparation mentale et remise en forme à Fribourg.",
+    url: '/services',
+  },
+}
 
 function Services() {
   return (

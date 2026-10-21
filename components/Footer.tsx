@@ -68,10 +68,25 @@ function Footer() {
       <div className="py-8 w-full bg-darkColor flex items-center justify-center">
         <img
           className=""
-          src="/img/logo/icon-white.webp" 
-          alt="" 
+          src="/img/logo/icon-white.webp"
+          alt="logo absolute motion"
         />
       </div>
+
+      <nav className="w-full bg-darkColor flex flex-wrap justify-center items-center gap-x-6 gap-y-2 pb-6 text-clearColor">
+        <Link
+          href={"/mentions-legales"}
+          className="font-rajdhaniRegular text-sm hover:underline"
+        >
+          Mentions légales
+        </Link>
+        <Link
+          href={"/politique-de-confidentialite"}
+          className="font-rajdhaniRegular text-sm hover:underline"
+        >
+          Politique de confidentialité
+        </Link>
+      </nav>
 
       <a
         href="https://portfolio-pablo-teal.vercel.app/"

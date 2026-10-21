@@ -2,7 +2,26 @@ import CustomHeroBannerImage from "@/components/CustomHeroBannerImage";
 import Footer from "@/components/Footer";
 import FormuleCard from "@/components/FormuleCard";
 import Navbar from "@/components/Navbar";
+import type { Metadata } from "next";
 import React from "react";
+
+export const metadata: Metadata = {
+  title: "Tarifs — Formules de coaching personnalisables",
+  description:
+    "Des formules de coaching 100% personnalisables de 70.- à 150.- CHF, adaptées à vos objectifs, votre niveau et votre volume d'entraînement. Contactez Absolute Motion à Fribourg.",
+  keywords: [
+    "tarifs coach sportif Fribourg",
+    "prix personal trainer Suisse",
+    "formule coaching personnalisable",
+  ],
+  alternates: { canonical: "/tarifs" },
+  openGraph: {
+    title: "Tarifs — Absolute Motion",
+    description:
+      "Formules de coaching personnalisables de 70.- à 150.- CHF à Fribourg.",
+    url: "/tarifs",
+  },
+};
 
 function Tarifs() {
   return (
