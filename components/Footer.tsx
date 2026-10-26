@@ -11,7 +11,7 @@ function Footer() {
             absolute motion
           </h1>
           <h2 className="font-rajdhaniRegular text-xl text-center">
-            Personal trainer | Small groups trainer
+            Personal trainer | Small group trainer
           </h2>
         </div>
 
