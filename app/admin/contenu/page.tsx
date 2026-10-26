@@ -7,31 +7,6 @@ type Field = { key: string; label: string; multiline?: boolean; toggleable?: boo
 
 const SECTIONS: { title: string; description?: string; fields: Field[] }[] = [
   {
-    title: "Bannière d'accueil",
-    fields: [
-      { key: "hero_subtitle", label: "Sous-titre" },
-      { key: "hero_location", label: "Localisation" },
-    ],
-  },
-  {
-    title: "Accueil — Qui suis-je",
-    fields: [
-      { key: "home_who_title", label: "Titre" },
-      { key: "home_who_text", label: "Texte", multiline: true },
-    ],
-  },
-  {
-    title: "Accueil — Ma mission",
-    fields: [
-      { key: "home_mission_title", label: "Titre" },
-      { key: "home_mission_text", label: "Texte", multiline: true },
-    ],
-  },
-  {
-    title: "Page Services",
-    fields: [{ key: "services_intro", label: "Texte d'introduction", multiline: true }],
-  },
-  {
     title: "Section avis",
     fields: [{ key: "reviews_title", label: "Titre de la section" }],
   },

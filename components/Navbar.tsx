@@ -22,10 +22,6 @@ const links = [
     href: "/services",
   },
   {
-    label: "tarifs",
-    href: "/tarifs",
-  },
-  {
     label: "avis",
     href: "/avis",
   },

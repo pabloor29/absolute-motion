@@ -7,16 +7,16 @@ export const dynamic = "force-dynamic";
 export default async function AdminHome() {
   const supabase = createClient();
 
-  const [{ count: pending }, { count: services }, { count: approved }] = await Promise.all([
+  const [{ count: pending }, { count: offers }, { count: approved }] = await Promise.all([
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("status", "pending"),
-    supabase.from("services").select("*", { count: "exact", head: true }),
+    supabase.from("offers").select("*", { count: "exact", head: true }),
     supabase.from("reviews").select("*", { count: "exact", head: true }).eq("status", "approved"),
   ]);
 
   const cards = [
     { label: "Avis en attente", value: pending ?? 0, href: "/admin/avis", highlight: (pending ?? 0) > 0 },
     { label: "Avis publiés", value: approved ?? 0, href: "/admin/avis", highlight: false },
-    { label: "Services", value: services ?? 0, href: "/admin/services", highlight: false },
+    { label: "Services & offres", value: offers ?? 0, href: "/admin/offres", highlight: false },
   ];
 
   return (
@@ -40,7 +40,7 @@ export default async function AdminHome() {
         <p className="mb-2">Depuis cet espace vous pouvez :</p>
         <ul className="list-disc pl-5 space-y-1">
           <li><Link href="/admin/contenu" className="underline">Modifier les textes et titres</Link> du site.</li>
-          <li><Link href="/admin/services" className="underline">Gérer les services</Link> (ajouter / modifier / supprimer).</li>
+          <li><Link href="/admin/offres" className="underline">Gérer les services &amp; offres</Link> (cartes de la page Services).</li>
           <li><Link href="/admin/avis" className="underline">Modérer les avis clients</Link> (valider / rejeter / supprimer).</li>
           <li><Link href="/admin/liens" className="underline">Générer un lien d'avis</Link> à envoyer à un client.</li>
         </ul>

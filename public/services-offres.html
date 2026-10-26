@@ -1,0 +1,996 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Services — Absolute Motion (Copy)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --bg: #f4f5f8;
+  --bg2: #ffffff;
+  --fg: #0d0f14;
+  --fg2: #4a5568;
+  --fg3: #8492a6;
+  --accent: #1c5bff;
+  --accent2: #0a3acc;
+  --accent-dim: #dce9ff;
+  --gold: #c8922a;
+  --gold-dim: #fdf3e0;
+  --ok: #14a05a;
+  --ok-dim: #d4f5e4;
+  --border: #dde3ee;
+  --card: #ffffff;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b0d12;
+    --bg2: #12151c;
+    --fg: #edf0f8;
+    --fg2: #8899bb;
+    --fg3: #4a5878;
+    --accent: #4d84ff;
+    --accent2: #6699ff;
+    --accent-dim: #0f1f40;
+    --gold: #e6ac44;
+    --gold-dim: #2a1d08;
+    --ok: #22c97a;
+    --ok-dim: #0a2218;
+    --border: #1c2133;
+    --card: #12151c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b0d12;
+  --bg2: #12151c;
+  --fg: #edf0f8;
+  --fg2: #8899bb;
+  --fg3: #4a5878;
+  --accent: #4d84ff;
+  --accent2: #6699ff;
+  --accent-dim: #0f1f40;
+  --gold: #e6ac44;
+  --gold-dim: #2a1d08;
+  --ok: #22c97a;
+  --ok-dim: #0a2218;
+  --border: #1c2133;
+  --card: #12151c;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0 }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+
+/* ── Sticky nav ── */
+.site-nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: rgba(13,15,20,.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px max(24px, env(safe-area-inset-left,0px));
+  gap: 16px;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: #0d0f14;
+  z-index: 21;
+}
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+}
+.nav-logo span { color: var(--accent) }
+.nav-right { display: flex; align-items: center; gap: 10px }
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 7px;
+  padding: 7px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: none;
+  display: inline-block;
+}
+.nav-cta:hover { background: var(--accent2) }
+.theme-btn {
+  background: rgba(255,255,255,.08);
+  border: none;
+  border-radius: 7px;
+  color: rgba(255,255,255,.6);
+  padding: 7px 11px;
+  font-size: .8rem;
+  cursor: pointer;
+}
+.theme-btn:hover { background: rgba(255,255,255,.15) }
+
+/* ── Hero ── */
+.hero {
+  background: linear-gradient(155deg, #060810 0%, #0d1530 45%, #0a2060 100%);
+  padding: 70px max(24px, env(safe-area-inset-left,0px)) 60px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -60px;
+  bottom: -80px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(28,91,255,.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-bottom: 14px;
+}
+.hero-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.6rem, 8vw, 4.8rem);
+  line-height: 1;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 18px;
+  text-wrap: balance;
+}
+.hero-title em {
+  font-style: normal;
+  color: var(--accent);
+}
+.hero-sub {
+  font-size: 1rem;
+  color: rgba(255,255,255,.65);
+  max-width: 52ch;
+  line-height: 1.65;
+  margin-bottom: 32px;
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap }
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--accent);
+  color: #fff;
+  border-radius: 9px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: .9rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background .15s;
+}
+.btn-primary:hover { background: var(--accent2) }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.3);
+  color: rgba(255,255,255,.8);
+  border-radius: 9px;
+  padding: 12px 24px;
+  font-weight: 600;
+  font-size: .9rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+.btn-ghost:hover { border-color: rgba(255,255,255,.6) }
+.hero-badges {
+  margin-top: 36px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 999px;
+  font-size: .75rem;
+  color: rgba(255,255,255,.6);
+  font-weight: 500;
+}
+.hero-badge strong { color: rgba(255,255,255,.9) }
+
+/* ── Section headings ── */
+.page-section {
+  padding: 60px max(24px, env(safe-area-inset-left,0px));
+  max-width: 960px;
+  margin-inline: auto;
+}
+.section-eyebrow {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 5vw, 2.8rem);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  line-height: 1.05;
+  margin-bottom: 10px;
+  text-wrap: balance;
+}
+.section-desc {
+  color: var(--fg2);
+  font-size: .95rem;
+  max-width: 60ch;
+  line-height: 1.65;
+  margin-bottom: 36px;
+}
+
+/* ── Separator ── */
+.section-sep {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* ── Service block : Personal Training ── */
+.pt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+@media (max-width: 680px) { .pt-grid { grid-template-columns: 1fr } }
+
+.pt-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow .2s;
+}
+.pt-card:hover { box-shadow: 0 4px 28px rgba(28,91,255,.1) }
+.pt-card-top {
+  padding: 22px 22px 0;
+}
+.pt-icon { font-size: 1.8rem; margin-bottom: 10px }
+.pt-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: 4px;
+}
+.pt-duration {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 600;
+  color: var(--fg3);
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.pt-desc {
+  font-size: .85rem;
+  color: var(--fg2);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+.pt-price-block {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding: 16px 22px 20px;
+  background: var(--bg);
+}
+.pt-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .82rem;
+  gap: 8px;
+}
+.pt-price-row:last-child { border-bottom: none }
+.pt-price-label { color: var(--fg2) }
+.pt-price-val {
+  font-weight: 700;
+  color: var(--fg);
+  white-space: nowrap;
+}
+.pt-price-val .strike {
+  text-decoration: line-through;
+  color: var(--fg3);
+  font-weight: 400;
+  margin-right: 4px;
+}
+.pt-price-val .badge-discount {
+  display: inline-block;
+  font-size: .65rem;
+  background: var(--ok-dim);
+  color: var(--ok);
+  padding: 2px 5px;
+  border-radius: 4px;
+  font-weight: 700;
+  margin-left: 4px;
+  vertical-align: middle;
+}
+
+/* ── Coaching à distance ── */
+.distance-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 660px) { .distance-grid { grid-template-columns: 1fr } }
+
+.dist-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.dist-card.featured {
+  border-color: var(--gold);
+  position: relative;
+}
+.dist-ribbon {
+  background: var(--gold);
+  color: #fff;
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 5px;
+}
+.dist-header {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.dist-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 2px;
+}
+.dist-tagline { font-size: .82rem; color: var(--fg2) }
+.dist-price-area {
+  padding: 16px 22px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.dist-price-main {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--accent);
+  line-height: 1;
+}
+.dist-price-unit { font-size: .8rem; color: var(--fg2) }
+.dist-price-alt {
+  font-size: .78rem;
+  color: var(--ok);
+  font-weight: 600;
+  background: var(--ok-dim);
+  padding: 3px 8px;
+  border-radius: 5px;
+}
+.dist-features { padding: 16px 22px 22px; flex: 1 }
+.dist-feature {
+  display: flex;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .83rem;
+  line-height: 1.45;
+  align-items: flex-start;
+}
+.dist-feature:last-child { border-bottom: none }
+.dist-feature-icon { color: var(--ok); flex-shrink: 0; font-size: .9rem; margin-top: 1px }
+.dist-feature-text strong { display: block; font-size: .8rem; color: var(--fg); margin-bottom: 1px }
+.dist-feature-text span { color: var(--fg2) }
+
+/* ── Hybride ── */
+.hybrid-hero {
+  background: linear-gradient(135deg, #0a1428 0%, #0d1e3e 50%, #07142a 100%);
+  border-radius: 16px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 24px;
+}
+.hybrid-hero::before {
+  content: "";
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(28,91,255,.25) 0%, transparent 65%);
+  pointer-events: none;
+}
+.hybrid-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+.hybrid-subtitle { font-size: .9rem; color: rgba(255,255,255,.6); max-width: 52ch; line-height: 1.6; margin-bottom: 20px }
+.hybrid-chips { display: flex; gap: 8px; flex-wrap: wrap }
+.hybrid-chip {
+  background: rgba(28,91,255,.2);
+  border: 1px solid rgba(28,91,255,.35);
+  color: rgba(255,255,255,.85);
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: .75rem;
+  font-weight: 500;
+}
+
+.hybrid-table-wrap { overflow-x: auto; border-radius: 12px; border: 1px solid var(--border) }
+.hybrid-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .83rem;
+  min-width: 480px;
+}
+.hybrid-table th {
+  background: var(--card);
+  padding: 12px 16px;
+  text-align: center;
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg3);
+  border-bottom: 1px solid var(--border);
+}
+.hybrid-table th:first-child { text-align: left }
+.hybrid-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+  background: var(--card);
+  color: var(--fg2);
+}
+.hybrid-table td:first-child { text-align: left; font-weight: 500; color: var(--fg) }
+.hybrid-table tr:last-child td { border-bottom: none }
+.hybrid-table .save-badge {
+  display: inline-block;
+  background: var(--ok-dim);
+  color: var(--ok);
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: .72rem;
+}
+.hybrid-table .save-badge.big { background: #d4f5e4; color: #0d7a40 }
+.hybrid-table .price-highlight { color: var(--accent); font-weight: 700; font-size: .95rem }
+.hybrid-table .row-featured td { background: var(--accent-dim) }
+.hybrid-table .row-top td { background: var(--gold-dim) }
+.hybrid-table .plan-label {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: 700;
+  font-size: .7rem;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+.plan-label.essent { background: var(--accent-dim); color: var(--accent) }
+.plan-label.complet { background: var(--gold-dim); color: var(--gold) }
+.note-box {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 12px 16px;
+  font-size: .82rem;
+  color: var(--fg2);
+  margin-top: 14px;
+  line-height: 1.55;
+}
+.note-box strong { color: var(--fg) }
+
+/* ── Testimoniaux placeholder ── */
+.testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px }
+@media (max-width: 600px) { .testi-grid { grid-template-columns: 1fr } }
+.testi-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 18px;
+}
+.testi-stars { color: #f59e0b; font-size: .85rem; margin-bottom: 8px }
+.testi-text { font-size: .85rem; color: var(--fg); font-style: italic; line-height: 1.55; margin-bottom: 10px }
+.testi-author { font-size: .75rem; color: var(--fg3); font-weight: 600 }
+
+/* ── CTA finale ── */
+.cta-section {
+  background: var(--fg);
+  padding: 64px max(24px, env(safe-area-inset-left,0px));
+  text-align: center;
+}
+.cta-section h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--bg);
+  margin-bottom: 12px;
+  line-height: 1.05;
+}
+.cta-section p { color: rgba(255,255,255,.55); font-size: .95rem; margin-bottom: 28px; max-width: 48ch; margin-inline: auto }
+.cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap }
+.cta-primary {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 28px;
+  font-weight: 700;
+  font-size: .95rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: background .15s;
+}
+.cta-primary:hover { background: var(--accent2) }
+.cta-ghost-dark {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.25);
+  color: rgba(255,255,255,.8);
+  border-radius: 10px;
+  padding: 13px 28px;
+  font-weight: 600;
+  font-size: .95rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: border-color .15s;
+}
+.cta-ghost-dark:hover { border-color: rgba(255,255,255,.55) }
+.contact-row {
+  margin-top: 24px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  font-size: .82rem;
+  color: rgba(255,255,255,.4);
+}
+.contact-row a { color: rgba(255,255,255,.65); text-decoration: none }
+.contact-row a:hover { color: #fff }
+
+/* ── Util ── */
+.mt8  { margin-top:  8px }
+.mt16 { margin-top: 16px }
+.mt24 { margin-top: 24px }
+.mb24 { margin-bottom: 24px }
+</style>
+
+<!-- ─── Navigation ─── -->
+<nav class="site-nav">
+  <a class="nav-logo" href="#"><span>Absolute</span>Motion</a>
+  <div class="nav-right">
+    <button class="theme-btn" onclick="toggleTheme()">☾</button>
+    <a class="nav-cta" href="#contact">Séance d'essai</a>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="hero-eyebrow">Coaching & Personal Training · Fribourg, Suisse 🇨🇭</div>
+  <h1 class="hero-title">Des services<br>conçus <em>pour vous.</em></h1>
+  <p class="hero-sub">
+    Coaching individuel en présentiel, suivi à distance ou formule hybride — chaque programme est pensé pour vos objectifs, votre emploi du temps et votre niveau. Basé à Fribourg, disponible partout.
+  </p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#contact">Bilan gratuit →</a>
+    <a class="btn-ghost" href="#coaching-distance">Coaching à distance</a>
+  </div>
+  <div class="hero-badges">
+    <div class="hero-badge"><strong>Qualitop</strong> certifié</div>
+    <div class="hero-badge"><strong>Swiss Active</strong></div>
+    <div class="hero-badge"><strong>EREPS</strong> européen</div>
+    <div class="hero-badge">📍 Fribourg &amp; région</div>
+  </div>
+</section>
+
+<!-- ─── Personal Training ─── -->
+<div class="page-section" id="personal-training">
+  <div class="section-eyebrow">🏃 En présentiel · Fribourg</div>
+  <h2 class="section-title">Personal Training</h2>
+  <p class="section-desc">
+    Séances sur mesure en plein air, en salle ou chez vous. Chaque programme est adapté à votre condition physique, vos objectifs et votre rythme de vie — que vous repreniez le sport après un arrêt ou que vous prépariez une compétition.
+  </p>
+
+  <div class="pt-grid">
+
+    <!-- Individuelle -->
+    <div class="pt-card">
+      <div class="pt-card-top">
+        <div class="pt-icon">🏋️</div>
+        <div class="pt-name">Séance Individuelle</div>
+        <div class="pt-duration">⏱ 60 minutes</div>
+        <p class="pt-desc">Un accompagnement complet et entièrement personnalisé pour travailler spécifiquement sur vos objectifs de forme physique. Programme adapté à chaque séance selon votre progression.</p>
+      </div>
+      <div class="pt-price-block">
+        <div class="pt-price-row">
+          <span class="pt-price-label">À la séance</span>
+          <span class="pt-price-val">100 CHF</span>
+        </div>
+        <div class="pt-price-row">
+          <span class="pt-price-label">Forfait 5 séances</span>
+          <span class="pt-price-val">
+            <span class="strike">500</span> 450 CHF
+            <span class="badge-discount">−10%</span>
+          </span>
+        </div>
+        <div class="pt-price-row">
+          <span class="pt-price-label">Forfait 10 séances</span>
+          <span class="pt-price-val">
+            <span class="strike">1000</span> 800 CHF
+            <span class="badge-discount">−20%</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Duo -->
+    <div class="pt-card">
+      <div class="pt-card-top">
+        <div class="pt-icon">👫</div>
+        <div class="pt-name">Séance Duo</div>
+        <div class="pt-duration">⏱ 70 minutes</div>
+        <p class="pt-desc">Entraînez-vous avec un·e ami·e ou un·e proche de niveau similaire. Vous bénéficiez du même suivi personnalisé qu'une séance individuelle, avec la motivation supplémentaire d'un binôme.</p>
+      </div>
+      <div class="pt-price-block">
+        <div class="pt-price-row">
+          <span class="pt-price-label">À la séance</span>
+          <span class="pt-price-val">150 CHF</span>
+        </div>
+        <div class="pt-price-row">
+          <span class="pt-price-label">Forfait 5 séances</span>
+          <span class="pt-price-val">
+            <span class="strike">750</span> 675 CHF
+            <span class="badge-discount">−10%</span>
+          </span>
+        </div>
+        <div class="pt-price-row">
+          <span class="pt-price-label">Forfait 10 séances</span>
+          <span class="pt-price-val">
+            <span class="strike">1500</span> 1200 CHF
+            <span class="badge-discount">−20%</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Small Group -->
+    <div class="pt-card">
+      <div class="pt-card-top">
+        <div class="pt-icon">👥</div>
+        <div class="pt-name">Small Group</div>
+        <div class="pt-duration">⏱ 70 minutes · max 5 personnes</div>
+        <p class="pt-desc">L'énergie du groupe sans sacrifier la personnalisation. Chaque participant bénéficie d'un programme adapté à son niveau. Idéal entre collègues, amis ou famille.</p>
+      </div>
+      <div class="pt-price-block">
+        <div class="pt-price-row">
+          <span class="pt-price-label">Par personne / séance</span>
+          <span class="pt-price-val">50 CHF</span>
+        </div>
+        <div class="pt-price-row">
+          <span class="pt-price-label">Groupe de 3 à 5</span>
+          <span class="pt-price-val">150–250 CHF</span>
+        </div>
+        <div class="pt-price-row">
+          <span class="pt-price-label">Forfaits sur demande</span>
+          <span class="pt-price-val" style="color: var(--accent)">Contactez-moi →</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="note-box mt16">
+    <strong>📝 Note :</strong> Les forfaits 5 séances doivent être utilisés en 3 mois maximum, les forfaits 10 séances en 6 mois. Des formules adaptées peuvent être composées sur demande.
+  </p>
+</div>
+
+<hr class="section-sep">
+
+<!-- ─── Coaching à distance ─── -->
+<div class="page-section" id="coaching-distance">
+  <div class="section-eyebrow">💻 En ligne · Partout en Suisse</div>
+  <h2 class="section-title">Coaching à distance</h2>
+  <p class="section-desc">
+    Suivi personnalisé structuré autour de la marche active, la course à pied, le trail, le cyclisme et le triathlon. Programme hebdomadaire ajusté en continu, préparation mentale et conseils nutritionnels.
+  </p>
+
+  <div class="distance-grid">
+
+    <!-- Essentiel -->
+    <div class="dist-card">
+      <div class="dist-header">
+        <div class="dist-name">Essentiel</div>
+        <div class="dist-tagline">L'essentiel du suivi, sans contrainte</div>
+      </div>
+      <div class="dist-price-area">
+        <div class="dist-price-main">70 CHF</div>
+        <div class="dist-price-unit">/ mois</div>
+        <div class="dist-price-alt">200 CHF / trimestre</div>
+      </div>
+      <div class="dist-features">
+        <div class="dist-feature">
+          <span class="dist-feature-icon">📋</span>
+          <div class="dist-feature-text">
+            <strong>Programme hebdomadaire</strong>
+            <span>Adapté à votre emploi du temps avec feedback personnalisé</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">📱</span>
+          <div class="dist-feature-text">
+            <strong>Plateforme intervals.icu</strong>
+            <span>Suivi de vos données d'entraînement en temps réel</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">📹</span>
+          <div class="dist-feature-text">
+            <strong>1 entretien visio mensuel</strong>
+            <span>Bilan, ajustements, questions</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">⏱</span>
+          <div class="dist-feature-text">
+            <strong>Réponse sous 48h</strong>
+            <span>En jours ouvrables</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">✅</span>
+          <div class="dist-feature-text">
+            <strong>Sans engagement</strong>
+            <span>Résiliable à tout moment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complet -->
+    <div class="dist-card featured">
+      <div class="dist-ribbon">⭐ Formule recommandée</div>
+      <div class="dist-header">
+        <div class="dist-name" style="color: var(--gold)">Complet</div>
+        <div class="dist-tagline">Suivi intégral, disponibilité maximale</div>
+      </div>
+      <div class="dist-price-area">
+        <div class="dist-price-main" style="color: var(--gold)">150 CHF</div>
+        <div class="dist-price-unit">/ mois</div>
+        <div class="dist-price-alt">400 CHF / trimestre</div>
+      </div>
+      <div class="dist-features">
+        <div class="dist-feature">
+          <span class="dist-feature-icon">📋</span>
+          <div class="dist-feature-text">
+            <strong>Programme entièrement adapté</strong>
+            <span>Hebdomadaire, réajusté en continu selon vos retours</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">📱</span>
+          <div class="dist-feature-text">
+            <strong>intervals.icu + Telegram + visio à la demande</strong>
+            <span>Communication multi-canal sans limite</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">🧠</span>
+          <div class="dist-feature-text">
+            <strong>Préparation mentale</strong>
+            <span>Techniques de visualisation, gestion du stress et de la performance</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">🥗</span>
+          <div class="dist-feature-text">
+            <strong>Conseils nutritionnels</strong>
+            <span>Adaptatation alimentaire à vos objectifs et vos compétitions</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">💪</span>
+          <div class="dist-feature-text">
+            <strong>Appli Renfo incluse</strong>
+            <span>Séances de renforcement musculaire complémentaires</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">⚡</span>
+          <div class="dist-feature-text">
+            <strong>Réponse sous 6h</strong>
+            <span>En heures et jours ouvrables</span>
+          </div>
+        </div>
+        <div class="dist-feature">
+          <span class="dist-feature-icon">✅</span>
+          <div class="dist-feature-text">
+            <strong>Sans engagement</strong>
+            <span>Résiliable à tout moment</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ─── Hybride ─── -->
+<div class="page-section" id="hybride">
+  <div class="section-eyebrow">🚀 Hybride · Le meilleur des deux</div>
+  <h2 class="section-title">Connect&amp;Train</h2>
+  <p class="section-desc">
+    Combinez le suivi continu à distance avec des séances en présentiel à Fribourg à tarif préférentiel. Plus votre abonnement est complet, plus le prix de chaque séance individuelle baisse.
+  </p>
+
+  <div class="hybrid-hero">
+    <div class="hybrid-title">🎯 Connectez-vous.<br>Dépassez vos limites.</div>
+    <p class="hybrid-subtitle">
+      La formule hybride Connect&amp;Train offre un suivi digital hebdomadaire renforcé par des séances de Personal Training à tarifs exclusifs réservés aux abonnés. Un système conçu pour maximiser votre progression — et vos économies.
+    </p>
+    <div class="hybrid-chips">
+      <span class="hybrid-chip">📊 Programme hebdomadaire</span>
+      <span class="hybrid-chip">💰 Tarifs dégressifs</span>
+      <span class="hybrid-chip">🏃 Présentiel + distance</span>
+      <span class="hybrid-chip">📍 Fribourg</span>
+    </div>
+  </div>
+
+  <div class="hybrid-table-wrap">
+    <table class="hybrid-table">
+      <thead>
+        <tr>
+          <th>Formule</th>
+          <th>Abonnement mensuel</th>
+          <th>Prix séance individuelle (60 min)</th>
+          <th>Économie vs. tarif standard</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sans abonnement</td>
+          <td>—</td>
+          <td class="price-highlight">100 CHF</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td>Forfait 10 séances</td>
+          <td>—</td>
+          <td class="price-highlight">80 CHF</td>
+          <td><span class="save-badge">−20 CHF</span></td>
+        </tr>
+        <tr class="row-featured">
+          <td><span class="plan-label essent">Essentiel</span></td>
+          <td>70 CHF / mois</td>
+          <td class="price-highlight">70 CHF</td>
+          <td><span class="save-badge">−30 CHF</span></td>
+        </tr>
+        <tr class="row-top">
+          <td><span class="plan-label complet">Complet</span></td>
+          <td>150 CHF / mois</td>
+          <td class="price-highlight">50 CHF</td>
+          <td><span class="save-badge big">−50 CHF 🔥</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note-box">
+    <strong>📌 Condition d'accès :</strong> Les tarifs préférentiels hybrides sont réservés aux abonnés actifs (formule Essentiel ou Complet). En cas de suspension de l'abonnement, le tarif standard (100 CHF/séance) s'applique aux séances restantes.
+  </div>
+</div>
+
+<hr class="section-sep">
+
+<!-- ─── Témoignages ─── -->
+<div class="page-section">
+  <div class="section-eyebrow">💬 Ils témoignent</div>
+  <h2 class="section-title">Ce que disent mes clients</h2>
+  <div class="testi-grid mt24">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">«Grâce au suivi d'Arnaud, j'ai pu préparer mon premier trail de montagne. La combinaison programme hebdomadaire + séances en présentiel a fait toute la différence.»</p>
+      <div class="testi-author">— Client abonné Connect&amp;Train</div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">«Le coaching à distance m'a permis de reprendre le sport malgré un emploi du temps chargé. Programme toujours adapté, réponses rapides, vraiment pro.»</p>
+      <div class="testi-author">— Abonné formule Complet</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── CTA finale ─── -->
+<section class="cta-section" id="contact">
+  <h2>Prêt à commencer ?</h2>
+  <p>Bilan de forme offert de 30 min — sans engagement, par téléphone ou visio. On fait le point ensemble sur vos objectifs et la formule la plus adaptée.</p>
+  <div class="cta-btns">
+    <a class="cta-primary" href="tel:+41782145057">📞 Appeler Arnaud</a>
+    <a class="cta-ghost-dark" href="mailto:absolute.motion@icloud.com">Envoyer un message</a>
+  </div>
+  <div class="contact-row">
+    <a href="tel:+41782145057">+41 78 214 50 57</a>
+    <span>·</span>
+    <a href="https://absolutemotion.fr" target="_blank">absolutemotion.fr</a>
+    <span>·</span>
+    <a href="https://instagram.com/absolutemotionx" target="_blank">@absolutemotionx</a>
+  </div>
+</section>
+
+<script>
+function toggleTheme() {
+  const r = document.documentElement;
+  r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+</script>
+
+</body></html>

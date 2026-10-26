@@ -24,6 +24,7 @@ function CustomHeroBannerImage(props: any) {
       <img
         src={props.img}
         alt=""
+        aria-hidden="true"
         className="h-full w-full object-cover absolute z-30"
       />
 

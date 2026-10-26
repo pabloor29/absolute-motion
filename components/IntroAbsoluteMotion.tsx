@@ -29,10 +29,10 @@ function IntroAbsoluteMotion({
                         </p>
                     </div>
                     <div className="">
-                        <img 
+                        <img
                             className='grayscale rounded-xl'
-                            src="/img/intro/profile-coach.webp" 
-                            alt="" 
+                            src="/img/intro/profile-coach.webp"
+                            alt="Arnaud, personal trainer Absolute Motion à Fribourg"
                         />
                     </div>
                 </div>

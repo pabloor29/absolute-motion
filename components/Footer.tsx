@@ -29,12 +29,6 @@ function Footer() {
             services
           </Link>
           <Link
-            href={"/tarifs"}
-            className="font-calSans hover:ml-6 text-xl"
-          >
-            tarifs
-          </Link>
-          <Link
             href={"/contact"}
             className="font-calSans hover:ml-6 text-xl"
           >

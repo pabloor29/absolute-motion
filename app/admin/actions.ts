@@ -32,33 +32,75 @@ export async function updateContent(formData: FormData) {
   revalidatePublic();
 }
 
-// ---------- Services ----------
-export async function saveService(formData: FormData) {
+// ---------- Offers ----------
+export async function saveOffer(formData: FormData) {
   const supabase = createClient();
   const id = String(formData.get("id") || "");
+  const category = String(formData.get("category") || "presentiel");
   const payload = {
-    emoji: String(formData.get("emoji") || ""),
-    title: String(formData.get("title") || "").trim(),
-    description: String(formData.get("description") || "").trim(),
+    category: category === "distance" ? "distance" : "presentiel",
+    icon: String(formData.get("icon") || "").trim(),
+    name: String(formData.get("name") || "").trim(),
+    duration: String(formData.get("duration") || "").trim(),
+    price: String(formData.get("price") || "").trim(),
+    price_unit: String(formData.get("price_unit") || "").trim(),
+    tagline: String(formData.get("tagline") || "").trim(),
+    features: String(formData.get("features") || "").trim(),
+    extras: String(formData.get("extras") || "").trim(),
+    highlighted: formData.get("highlighted") === "on",
+    badge: String(formData.get("badge") || "").trim(),
+    note: String(formData.get("note") || "").trim(),
     position: Number(formData.get("position") || 0),
     published: formData.get("published") === "on",
     updated_at: new Date().toISOString(),
   };
-  if (!payload.title) return;
+  if (!payload.name) return;
   if (id) {
-    await supabase.from("services").update(payload).eq("id", id);
+    await supabase.from("offers").update(payload).eq("id", id);
   } else {
-    await supabase.from("services").insert(payload);
+    await supabase.from("offers").insert(payload);
   }
-  revalidatePath("/admin/services");
+  revalidatePath("/admin/offres");
   revalidatePublic();
 }
 
-export async function deleteService(formData: FormData) {
+export async function deleteOffer(formData: FormData) {
   const supabase = createClient();
   const id = String(formData.get("id") || "");
-  if (id) await supabase.from("services").delete().eq("id", id);
-  revalidatePath("/admin/services");
+  if (id) await supabase.from("offers").delete().eq("id", id);
+  revalidatePath("/admin/offres");
+  revalidatePublic();
+}
+
+// ---------- Hybrid rows (Connect&Train) ----------
+export async function saveHybridRow(formData: FormData) {
+  const supabase = createClient();
+  const id = String(formData.get("id") || "");
+  const payload = {
+    label: String(formData.get("label") || "").trim(),
+    monthly: String(formData.get("monthly") || "").trim(),
+    session_price: String(formData.get("session_price") || "").trim(),
+    saving: String(formData.get("saving") || "").trim(),
+    highlighted: formData.get("highlighted") === "on",
+    position: Number(formData.get("position") || 0),
+    published: formData.get("published") === "on",
+    updated_at: new Date().toISOString(),
+  };
+  if (!payload.label) return;
+  if (id) {
+    await supabase.from("hybrid_rows").update(payload).eq("id", id);
+  } else {
+    await supabase.from("hybrid_rows").insert(payload);
+  }
+  revalidatePath("/admin/offres");
+  revalidatePublic();
+}
+
+export async function deleteHybridRow(formData: FormData) {
+  const supabase = createClient();
+  const id = String(formData.get("id") || "");
+  if (id) await supabase.from("hybrid_rows").delete().eq("id", id);
+  revalidatePath("/admin/offres");
   revalidatePublic();
 }
 

@@ -82,6 +82,9 @@ const jsonLd = {
       image: `${SITE_URL}${OG_IMAGE}`,
       logo: `${SITE_URL}/img/logo/logo.webp`,
       email: "absolute.motion@icloud.com",
+      telephone: "+41782145057",
+      priceRange: "50–150 CHF",
+      currenciesAccepted: "CHF",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Fribourg",

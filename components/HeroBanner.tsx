@@ -1,85 +1,98 @@
 "use client";
 
-import { BadgeCheck } from "lucide-react";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const words = [
-  "ÉQUILIBRE.",
-  "FORCE.",
-  "ENDURANCE.",
-];
-
+// Fond conservé : les images qui défilent en arrière-plan.
 const bgTheme = [
   "/img/bg/bg-equilibre.webp",
   "/img/bg/bg-force.webp",
   "/img/bg/bg-endurance.webp",
 ];
 
-type HeroBannerProps = {
-  subtitle?: string;
-  location?: string;
-};
+const chips = [
+  { label: "Certifié Qualitop", accent: true },
+  { label: "Membre EREPS", accent: false },
+  { label: "Membre Swiss Active", accent: false },
+  { label: "📍 Fribourg & région", accent: false },
+];
 
-function HeroBanner({
-  subtitle = "PERSONAL TRAINER",
-  location = "📍 Fribourg, Suisse 🇨🇭",
-}: HeroBannerProps) {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0);
+function HeroBanner() {
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentWordIndex((index) => (index + 1) % words.length);
       setCurrentBgIndex((index) => (index + 1) % bgTheme.length);
-    }, 2000);
+    }, 2500);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="w-full z-10">
-      <div className="h-screen w-full bg-mainColor flex flex-col justify-center items-center">
-        <div className="absolute">
+    <section className="relative w-full h-screen overflow-hidden">
+      {/* Fond : images qui défilent */}
+      <img
+        className="absolute inset-0 w-full h-full object-cover"
+        src={bgTheme[currentBgIndex]}
+        alt=""
+        aria-hidden="true"
+      />
+      {/* Voile sombre pour la lisibilité du texte */}
+      <div
+        className="absolute inset-0 bg-gradient-to-r from-darkColor/90 via-darkColor/70 to-darkColor/40"
+        aria-hidden="true"
+      />
+
+      {/* Contenu (comme l'exemple) */}
+      <div className="relative z-10 h-full max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="flex flex-col justify-center">
+          <p className="font-rajdhaniRegular text-sm font-bold uppercase tracking-widest text-[#6b7cff] mb-4">
+            Personal Trainer · Fribourg, Suisse 🇨🇭
+          </p>
+          <h1 className="font-leagueSpartan font-bold text-6xl md:text-8xl text-clearColor uppercase leading-none">
+            Arnaud
+          </h1>
+          <p className="font-rajdhaniRegular uppercase tracking-widest text-clearColor/50 text-xl md:text-2xl mt-2 mb-7">
+            Coach &amp; Personal Trainer
+          </p>
+          <p className="font-rajdhaniRegular text-clearColor/70 text-lg max-w-xl leading-relaxed mb-7">
+            De l'équipe de France junior de rugby à XIII au cockpit d'un
+            hélicoptère, puis au coaching sportif —{" "}
+            <strong className="text-clearColor font-normal">
+              trois vies, un même fil conducteur : le dépassement de soi.
+            </strong>{" "}
+            Aujourd'hui je mets ce parcours au service de votre progression.
+          </p>
+          <div className="flex flex-wrap gap-2 mb-8">
+            {chips.map((c) => (
+              <span
+                key={c.label}
+                className={`font-rajdhaniRegular text-sm rounded-full px-3 py-1 border ${
+                  c.accent
+                    ? "border-[#5b6bff]/50 text-[#7c89ff]"
+                    : "border-clearColor/15 text-clearColor/65"
+                }`}
+              >
+                {c.label}
+              </span>
+            ))}
+          </div>
+          <a
+            href="/contact"
+            className="self-start bg-mainColor text-clearColor rounded-xl py-3 px-6 font-calSans text-lg hover:opacity-90 duration-150"
+          >
+            Réserver un bilan →
+          </a>
+        </div>
+
+        {/* Photo d'Arnaud */}
+        <div className="hidden md:flex items-end justify-end">
           <img
-            className="w-screen h-screen object-cover overflow-hidden"
-            src={bgTheme[currentBgIndex]}
-            alt="Theme background" 
+            src="/img/intro/profile-coach.webp"
+            alt="Arnaud — Personal Trainer à Fribourg"
+            className="w-[300px] h-[440px] object-cover object-top rounded-t-2xl border border-clearColor/10 shadow-2xl"
           />
         </div>
-        <div className="z-10 ">
-          <h1 className="text-6xl md:text-8xl font-leagueSpartan font-bold text-clearColor my-8 text-center">
-            {words[currentWordIndex]}
-          </h1>
-        </div>
-        <div className="absolute flex flex-col justify-center items-end h-full w-min translate-y-36 md:translate-y-44">
-          <article className="bg-clearColor/30 p-2 rounded-xl w-min whitespace-nowrap">
-            <p className="font-calSans text-3xl md:text-4xl lg:text-5xl text-center text-darkColor">
-              {subtitle}
-            </p>
-            <p className="font-rajdhaniRegular text-center text-xl md:text-2xl lg:text-2xl">
-              {location}
-            </p>
-          </article>
-          <div className="py-2 flex flex-row justify-end items-end mt-2 w-2/3 md:w-1/2">
-            <a href="https://qualitop.ch/absolute-motion-qualitop-certified/">
-              <div className="bg-mainColor/70 rounded-xl p-2 flex flex-row justify-center items-center gap-2">
-                <BadgeCheck size={18} color="white" />
-                <p className="font-rajdhaniRegular text-clearColor font-bold text-center text-xl md:text-xl">
-                  Certifié
-                </p>
-                <img
-                  className="object-cover overflow-hidden w-1/2 md:w-1/3"
-                  src="/img/logo/qualitop-logo-2.jpg"
-                  alt="Theme background" 
-                />
-              </div>
-            </a>
-          </div>
-          {/* <div className="z-50 bg-darkColor rounded-2xl py-3 px-6 text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor text-center">
-            <a href="/contact">Besoin d'un coach ? contactez moi !</a>
-          </div> */}
-        </div>
       </div>
-    </div>
+    </section>
   );
 }
 
