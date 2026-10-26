@@ -1,6 +1,7 @@
 import CustomHeroBannerImage from "@/components/CustomHeroBannerImage";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { getContent, legalField } from "@/lib/data";
 import type { Metadata } from "next";
 import React from "react";
 
@@ -12,7 +13,20 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-function MentionsLegales() {
+async function MentionsLegales() {
+  const content = await getContent();
+
+  const editorLines = [
+    { label: "Nom / raison sociale", value: legalField(content, "legal_company_name") },
+    { label: "Statut juridique", value: legalField(content, "legal_legal_status") },
+    { label: "Adresse", value: legalField(content, "legal_address") },
+    { label: "Numéro IDE", value: legalField(content, "legal_ide") },
+    { label: "E-mail", value: legalField(content, "legal_email"), mail: true },
+    { label: "Téléphone", value: legalField(content, "legal_phone") },
+  ].filter((l) => l.value);
+
+  const publisher = (content.legal_publisher_name ?? "").trim();
+
   return (
     <>
       <Navbar />
@@ -26,27 +40,25 @@ function MentionsLegales() {
             <h2 className="font-calSans text-2xl mb-2">1. Éditeur du site</h2>
             <p>
               Le site <strong>Absolute Motion</strong> est édité par :
-              <br />
-              Nom / raison sociale : [À COMPLÉTER]
-              <br />
-              Statut juridique : [À COMPLÉTER — ex. entreprise individuelle]
-              <br />
-              Adresse : [À COMPLÉTER], Fribourg, Suisse
-              <br />
-              Numéro IDE (le cas échéant) : [À COMPLÉTER]
-              <br />
-              E-mail :{" "}
-              <a className="underline" href="mailto:absolute.motion@icloud.com">
-                absolute.motion@icloud.com
-              </a>
-              <br />
-              Téléphone : [À COMPLÉTER]
+              {editorLines.map((l) => (
+                <React.Fragment key={l.label}>
+                  <br />
+                  {l.label} :{" "}
+                  {l.mail ? (
+                    <a className="underline" href={`mailto:${l.value}`}>
+                      {l.value}
+                    </a>
+                  ) : (
+                    l.value
+                  )}
+                </React.Fragment>
+              ))}
             </p>
           </section>
 
           <section>
             <h2 className="font-calSans text-2xl mb-2">2. Responsable de la publication</h2>
-            <p>Arnaud [À COMPLÉTER — nom complet], en qualité d'exploitant d'Absolute Motion.</p>
+            <p>{publisher}, en qualité d'exploitant d'Absolute Motion.</p>
           </section>
 
           <section>

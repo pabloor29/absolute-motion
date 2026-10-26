@@ -15,7 +15,15 @@ const bgTheme = [
   "/img/bg/bg-endurance.webp",
 ];
 
-function HeroBanner() {
+type HeroBannerProps = {
+  subtitle?: string;
+  location?: string;
+};
+
+function HeroBanner({
+  subtitle = "PERSONAL TRAINER",
+  location = "📍 Fribourg, Suisse 🇨🇭",
+}: HeroBannerProps) {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [currentBgIndex, setCurrentBgIndex] = useState(0);
 
@@ -45,10 +53,10 @@ function HeroBanner() {
         <div className="absolute flex flex-col justify-center items-end h-full w-min translate-y-36 md:translate-y-44">
           <article className="bg-clearColor/30 p-2 rounded-xl w-min whitespace-nowrap">
             <p className="font-calSans text-3xl md:text-4xl lg:text-5xl text-center text-darkColor">
-              PERSONAL TRAINER
+              {subtitle}
             </p>
             <p className="font-rajdhaniRegular text-center text-xl md:text-2xl lg:text-2xl">
-              📍 Fribourg, Suisse 🇨🇭
+              {location}
             </p>
           </article>
           <div className="py-2 flex flex-row justify-end items-end mt-2 w-2/3 md:w-1/2">

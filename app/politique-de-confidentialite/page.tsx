@@ -1,6 +1,7 @@
 import CustomHeroBannerImage from "@/components/CustomHeroBannerImage";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { getContent, legalField } from "@/lib/data";
 import type { Metadata } from "next";
 import React from "react";
 
@@ -12,7 +13,18 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-function PolitiqueConfidentialite() {
+async function PolitiqueConfidentialite() {
+  const content = await getContent();
+  const email = (content.legal_email || "absolute.motion@icloud.com").trim();
+
+  const controllerLines = [
+    { label: "Nom / raison sociale", value: legalField(content, "legal_company_name") },
+    { label: "Adresse", value: legalField(content, "legal_address") },
+    { label: "E-mail", value: legalField(content, "legal_email"), mail: true },
+  ].filter((l) => l.value);
+
+  const retention = legalField(content, "privacy_retention");
+
   return (
     <>
       <Navbar />
@@ -34,14 +46,19 @@ function PolitiqueConfidentialite() {
           <section>
             <h2 className="font-calSans text-2xl mb-2">1. Responsable du traitement</h2>
             <p>
-              Nom / raison sociale : [À COMPLÉTER]
-              <br />
-              Adresse : [À COMPLÉTER], Fribourg, Suisse
-              <br />
-              E-mail :{" "}
-              <a className="underline" href="mailto:absolute.motion@icloud.com">
-                absolute.motion@icloud.com
-              </a>
+              {controllerLines.map((l, i) => (
+                <React.Fragment key={l.label}>
+                  {i > 0 && <br />}
+                  {l.label} :{" "}
+                  {l.mail ? (
+                    <a className="underline" href={`mailto:${l.value}`}>
+                      {l.value}
+                    </a>
+                  ) : (
+                    l.value
+                  )}
+                </React.Fragment>
+              ))}
             </p>
           </section>
 
@@ -96,8 +113,9 @@ function PolitiqueConfidentialite() {
             <h2 className="font-calSans text-2xl mb-2">6. Durée de conservation</h2>
             <p>
               Les messages reçus via le formulaire sont conservés le temps nécessaire au traitement
-              de votre demande puis à des fins de suivi relationnel : [À COMPLÉTER — ex. 24 mois].
-              Les données de mesure d'audience sont conservées de manière agrégée.
+              de votre demande puis à des fins de suivi relationnel
+              {retention ? ` : ${retention}` : ""}. Les données de mesure d'audience sont conservées
+              de manière agrégée.
             </p>
           </section>
 
@@ -107,8 +125,8 @@ function PolitiqueConfidentialite() {
               Vous disposez d'un droit d'accès, de rectification, de suppression, de limitation et
               d'opposition sur vos données, ainsi que d'un droit à la portabilité. Pour exercer ces
               droits, écrivez à{" "}
-              <a className="underline" href="mailto:absolute.motion@icloud.com">
-                absolute.motion@icloud.com
+              <a className="underline" href={`mailto:${email}`}>
+                {email}
               </a>
               . Vous pouvez également saisir l'autorité compétente (en Suisse, le Préposé fédéral à
               la protection des données et à la transparence — PFPDT).
@@ -128,8 +146,8 @@ function PolitiqueConfidentialite() {
             <h2 className="font-calSans text-2xl mb-2">9. Contact</h2>
             <p>
               Pour toute question relative à cette politique, contactez-nous à{" "}
-              <a className="underline" href="mailto:absolute.motion@icloud.com">
-                absolute.motion@icloud.com
+              <a className="underline" href={`mailto:${email}`}>
+                {email}
               </a>
               .
             </p>

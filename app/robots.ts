@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/contact-autoreply"],
+      disallow: ["/contact-autoreply", "/admin", "/avis/nouveau"],
     },
     sitemap: `${SITE_URL}/sitemap.xml`,
     host: SITE_URL,

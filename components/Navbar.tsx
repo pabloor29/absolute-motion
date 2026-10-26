@@ -26,6 +26,10 @@ const links = [
     href: "/tarifs",
   },
   {
+    label: "avis",
+    href: "/avis",
+  },
+  {
     label: "contact",
     href: "/contact",
   },
@@ -68,6 +72,7 @@ function Navbar() {
           <li className="flex justify-center space-x-12">
             {links.map((link) => (
               <a
+                key={link.href}
                 href={link.href}
                 className="leading-none text-darkColor hover:text-clearColor font-calSans text-2xl"
               >
