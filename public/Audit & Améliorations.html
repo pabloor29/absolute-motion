@@ -1,0 +1,1250 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
+<title>AbsoluteMotion — Audit &amp; Améliorations (Copy)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;600;800&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+/* ─── Design tokens ──────────────────────────────────────────────
+   Layout : page d'audit à sections annotées + before/after
+   Palette : noir profond / blanc neige / bleu électrique AbsoluteMotion
+   Type    : Barlow Condensed (display percutant), Inter (corps lisible)
+   ─────────────────────────────────────────────────────────────── */
+:root {
+  --bg: #f5f6f8;
+  --bg2: #ffffff;
+  --fg: #0d0f14;
+  --fg2: #475569;
+  --accent: #1c5bff;
+  --accent-dim: #dce8ff;
+  --warn: #d97706;
+  --warn-dim: #fef3c7;
+  --ok: #16a34a;
+  --ok-dim: #dcfce7;
+  --crit: #dc2626;
+  --crit-dim: #fee2e2;
+  --border: #e2e6ef;
+  --card: #ffffff;
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0d0f14;
+    --bg2: #141720;
+    --fg: #f0f4ff;
+    --fg2: #94a3b8;
+    --accent: #4d84ff;
+    --accent-dim: #1a2a4a;
+    --warn: #f59e0b;
+    --warn-dim: #2a1f0a;
+    --ok: #22c55e;
+    --ok-dim: #0a2015;
+    --crit: #f87171;
+    --crit-dim: #2a0a0a;
+    --border: #1e2435;
+    --card: #141720;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0d0f14;
+  --bg2: #141720;
+  --fg: #f0f4ff;
+  --fg2: #94a3b8;
+  --accent: #4d84ff;
+  --accent-dim: #1a2a4a;
+  --warn: #f59e0b;
+  --warn-dim: #2a1f0a;
+  --ok: #22c55e;
+  --ok-dim: #0a2015;
+  --crit: #f87171;
+  --crit-dim: #2a0a0a;
+  --border: #1e2435;
+  --card: #141720;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0 }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+
+/* ─── Header ─── */
+.site-header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--fg);
+  color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-inline: max(24px, env(safe-area-inset-left, 0px));
+  padding-block: 14px;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: var(--fg);
+  z-index: 21;
+}
+.site-header h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.5rem;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  color: var(--bg);
+  flex: 1;
+}
+.site-header .site {
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: .6;
+  letter-spacing: .05em;
+}
+.theme-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,.25);
+  color: var(--bg);
+  border-radius: 6px;
+  padding: 5px 10px;
+  font-size: .75rem;
+  cursor: pointer;
+  font-family: var(--font-body);
+  white-space: nowrap;
+}
+.theme-btn:hover { background: rgba(255,255,255,.1) }
+
+/* ─── Score banner ─── */
+.score-banner {
+  background: var(--fg);
+  color: var(--bg);
+  padding: 40px max(24px, env(safe-area-inset-left,0px));
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+.score-block { flex: 1; min-width: 180px }
+.score-big {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(4rem, 12vw, 6rem);
+  line-height: 1;
+  color: var(--accent);
+  letter-spacing: -.01em;
+}
+.score-label {
+  font-size: .8rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .6;
+  margin-top: 4px;
+}
+.score-meta {
+  flex: 3;
+  min-width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 4px;
+}
+.score-meta p { font-size: 1.05rem; opacity: .85; max-width: 56ch }
+.score-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 600;
+  letter-spacing: .03em;
+}
+.pill.crit  { background: var(--crit-dim);  color: var(--crit) }
+.pill.warn  { background: var(--warn-dim);  color: var(--warn) }
+.pill.ok    { background: var(--ok-dim);    color: var(--ok) }
+
+/* ─── Nav tabs ─── */
+.tabs {
+  position: sticky;
+  top: calc(env(safe-area-inset-top, 0px) + 52px);
+  z-index: 15;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-inline: max(16px, env(safe-area-inset-left,0px));
+}
+.tabs::-webkit-scrollbar { display: none }
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  padding: 14px 16px 11px;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--fg2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color .15s, border-color .15s;
+}
+.tab-btn:hover { color: var(--fg) }
+.tab-btn.active { color: var(--accent); border-bottom-color: var(--accent) }
+
+/* ─── Sections ─── */
+.section {
+  display: none;
+  padding-block: 40px 60px;
+  max-width: 920px;
+  margin-inline: auto;
+}
+.section.active { display: block }
+
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  text-wrap: balance;
+  margin-bottom: 8px;
+  line-height: 1.05;
+}
+.section-sub {
+  color: var(--fg2);
+  font-size: .95rem;
+  margin-bottom: 32px;
+  max-width: 58ch;
+}
+
+/* ─── Finding cards ─── */
+.findings { display: flex; flex-direction: column; gap: 20px }
+.finding {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.finding-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px 0;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.badge.crit { background: var(--crit-dim) }
+.badge.warn { background: var(--warn-dim) }
+.badge.ok   { background: var(--ok-dim) }
+.badge.info { background: var(--accent-dim) }
+
+.finding-title {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.finding-title .tag {
+  display: inline-block;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.tag.crit { background: var(--crit-dim); color: var(--crit) }
+.tag.warn { background: var(--warn-dim); color: var(--warn) }
+.tag.ok   { background: var(--ok-dim);  color: var(--ok) }
+.tag.info { background: var(--accent-dim); color: var(--accent) }
+
+.finding-desc { color: var(--fg2); font-size: .9rem; line-height: 1.55 }
+
+.finding-body { padding: 16px 24px 20px }
+
+/* ─── Before/After ─── */
+.ba-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 16px;
+}
+@media (max-width: 600px) { .ba-grid { grid-template-columns: 1fr } }
+
+.ba-panel {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.ba-label {
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.ba-label.before { background: var(--crit-dim); color: var(--crit) }
+.ba-label.after  { background: var(--ok-dim);   color: var(--ok) }
+.ba-content {
+  background: var(--bg);
+  padding: 14px;
+  font-size: .85rem;
+  color: var(--fg2);
+  min-height: 60px;
+  line-height: 1.5;
+}
+.ba-content code {
+  font-family: 'Courier New', monospace;
+  font-size: .82em;
+  background: var(--bg2);
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: var(--accent);
+  border: 1px solid var(--border);
+}
+
+/* ─── Mock wireframe ─── */
+.mockup {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-top: 16px;
+  font-size: .82rem;
+}
+.mock-header {
+  background: #0d0f14;
+  color: #f0f4ff;
+  padding: 10px 16px;
+  font-size: .7rem;
+  letter-spacing: .05em;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mock-dot { width: 8px; height: 8px; border-radius: 50% }
+.mock-red { background: #ff5f57 }
+.mock-yel { background: #febc2e }
+.mock-grn { background: #28c840 }
+.mock-url {
+  flex: 1;
+  background: rgba(255,255,255,.08);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: .7rem;
+  letter-spacing: .03em;
+  color: rgba(255,255,255,.5);
+  margin-inline: 8px;
+}
+.mock-body { background: var(--bg); padding: 0 }
+
+/* ─── Fake page sections for mocks ─── */
+.fake-hero {
+  background: linear-gradient(160deg, #0d1d3a 0%, #0f3260 60%, #1c5bff22 100%);
+  padding: 32px 24px;
+  text-align: center;
+  color: white;
+}
+.fake-hero .eyebrow {
+  font-size: .7rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  opacity: .6;
+  margin-bottom: 8px;
+}
+.fake-hero .headline {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.2rem;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.fake-hero .sub {
+  font-size: .85rem;
+  opacity: .7;
+  margin-bottom: 20px;
+  max-width: 30ch;
+  margin-inline: auto;
+}
+.fake-cta {
+  display: inline-block;
+  background: var(--accent);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: .85rem;
+  text-decoration: none;
+}
+.fake-cta.ghost {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.4);
+  color: white;
+}
+.fake-section {
+  padding: 24px;
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+}
+.fake-section-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--fg2);
+  margin-bottom: 12px;
+}
+.fake-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 500px) { .fake-cards { grid-template-columns: 1fr } }
+.fake-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+.fake-card-icon { font-size: 1.4rem; margin-bottom: 6px }
+.fake-card-title { font-weight: 600; font-size: .85rem; margin-bottom: 4px }
+.fake-card-desc { font-size: .75rem; color: var(--fg2); line-height: 1.4 }
+.fake-card-link { font-size: .75rem; color: var(--accent); font-weight: 600; margin-top: 8px; display: block }
+
+.fake-testimonial {
+  background: var(--bg);
+  border-left: 3px solid var(--accent);
+  padding: 12px 16px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 8px;
+}
+.fake-testimonial q { font-style: italic; font-size: .85rem; color: var(--fg) }
+.fake-testimonial cite { font-size: .75rem; color: var(--fg2); font-style: normal; margin-top: 4px; display: block }
+
+.fake-price-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 500px) { .fake-price-grid { grid-template-columns: 1fr } }
+.fake-price-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px;
+  text-align: center;
+}
+.fake-price-card.featured {
+  border-color: var(--accent);
+  background: var(--accent-dim);
+}
+.fake-price-name { font-weight: 700; font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px }
+.fake-price-amount { font-family: var(--font-display); font-size: 1.6rem; font-weight: 800; color: var(--accent); line-height: 1 }
+.fake-price-unit { font-size: .7rem; color: var(--fg2); margin-bottom: 8px }
+.fake-price-features { font-size: .72rem; color: var(--fg2); list-style: none; padding: 0; text-align: left }
+.fake-price-features li::before { content: "✓ "; color: var(--ok) }
+.fake-price-features li { padding: 2px 0 }
+
+/* ─── Checklist ─── */
+.checklist { display: flex; flex-direction: column; gap: 10px; margin-top: 24px }
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+.check-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px }
+.check-text strong { font-size: .9rem; display: block; margin-bottom: 2px }
+.check-text span { font-size: .82rem; color: var(--fg2) }
+
+/* ─── Priority matrix ─── */
+.matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 24px;
+}
+@media (max-width: 500px) { .matrix { grid-template-columns: 1fr } }
+.matrix-cell {
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.matrix-header {
+  padding: 10px 16px;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.matrix-header.q1 { background: var(--crit-dim); color: var(--crit) }
+.matrix-header.q2 { background: var(--warn-dim); color: var(--warn) }
+.matrix-header.q3 { background: var(--ok-dim);   color: var(--ok) }
+.matrix-header.q4 { background: var(--accent-dim); color: var(--accent) }
+.matrix-items { padding: 12px 16px; background: var(--card); min-height: 80px }
+.matrix-item {
+  font-size: .82rem;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--fg2);
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+.matrix-item:last-child { border-bottom: none }
+.matrix-item::before { content: "→"; color: var(--fg2); font-size: .7rem; flex-shrink: 0 }
+
+/* ─── Util ─── */
+.divider { border: none; border-top: 1px solid var(--border); margin-block: 28px }
+.mt16 { margin-top: 16px }
+.mt24 { margin-top: 24px }
+.lede { font-size: 1rem; color: var(--fg2); max-width: 60ch; line-height: 1.65; margin-bottom: 24px }
+
+/* Label row for CTA */
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+.cta-row button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: .85rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity .15s;
+}
+.cta-row button:hover { opacity: .85 }
+.cta-row button.primary { background: var(--accent); color: white }
+.cta-row button.ghost   { background: transparent; border: 1px solid var(--border); color: var(--fg) }
+</style>
+
+<!-- ─── Header ─── -->
+<header class="site-header">
+  <h1>Audit AbsoluteMotion</h1>
+  <span class="site">absolutemotion.fr</span>
+  <button class="theme-btn" onclick="toggleTheme()">☾ Thème</button>
+</header>
+
+<!-- ─── Score banner ─── -->
+<div class="score-banner">
+  <div class="score-block">
+    <div class="score-big">58</div>
+    <div class="score-label">/ 100 — Score global</div>
+  </div>
+  <div class="score-meta">
+    <p>Le site est une bonne base : design épuré, bonnes images, certifications visibles. Mais le contenu est trop mince pour convertir, et le référencement local est quasi inexistant.</p>
+    <div class="score-pills">
+      <span class="pill crit">🔴 3 bloquants</span>
+      <span class="pill warn">🟡 5 importants</span>
+      <span class="pill ok">🟢 4 améliorations</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── Navigation ─── -->
+<nav class="tabs" role="tablist">
+  <button class="tab-btn active" onclick="switchTab('seo',this)">📍 SEO local</button>
+  <button class="tab-btn" onclick="switchTab('contenu',this)">📝 Contenu</button>
+  <button class="tab-btn" onclick="switchTab('conversion',this)">🎯 Conversion</button>
+  <button class="tab-btn" onclick="switchTab('technique',this)">⚙️ Technique</button>
+  <button class="tab-btn" onclick="switchTab('maquettes',this)">🎨 Maquettes</button>
+  <button class="tab-btn" onclick="switchTab('plan',this)">📋 Plan d'action</button>
+</nav>
+
+<!-- ═══════════════════════════════════════════
+     SEO LOCAL
+══════════════════════════════════════════════ -->
+<section id="tab-seo" class="section active">
+  <p class="section-title">SEO Local</p>
+  <p class="section-sub">Fribourg est peu mentionné. Google ne peut pas vous associer à une zone géographique précise, ce qui coûte cher en visibilité locale.</p>
+
+  <div class="findings">
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge crit">🔍</div>
+        <div>
+          <div class="finding-title"><span class="tag crit">Bloquant</span>Titre identique sur toutes les pages</div>
+          <p class="finding-desc">Toutes les pages partagent le même <code>&lt;title&gt;</code>. Google pénalise les titres dupliqués et ne sait pas quelle page mettre en avant pour quelle requête.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel (toutes pages)</div>
+            <div class="ba-content"><code>absolute motion</code></div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              <b>Accueil :</b> <code>Personal Trainer Fribourg | Absolute Motion</code><br>
+              <b>Services :</b> <code>Coaching & Nutrition à Fribourg | Absolute Motion</code><br>
+              <b>Tarifs :</b> <code>Tarifs Personal Training Fribourg | Absolute Motion</code><br>
+              <b>Contact :</b> <code>Contacter Arnaud — Coach Sportif Fribourg</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge crit">📍</div>
+        <div>
+          <div class="finding-title"><span class="tag crit">Bloquant</span>«Fribourg» absent des zones indexables</div>
+          <p class="finding-desc">Le mot «Fribourg» n'apparaît que dans le lien Google Maps du footer — une ancre non indexée. Aucun H1, H2, ni corps de texte ne mentionne la ville.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content">H1 : <code>ÉQUILIBRE.</code><br>Aucune mention de Fribourg dans le corps de texte principal.</div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              Ajouter dans le H1 ou le chapeau : <em>«Personal Trainer basé à Fribourg, je vous accompagne…»</em><br>
+              Créer une section <b>«Zone d'intervention»</b> mentionnant : Fribourg, Bulle, Villars-sur-Glâne, Marly, Düdingen (Guin).
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">🇩🇪</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Site uniquement en français — canton bilingue</div>
+          <p class="finding-desc">Fribourg est un canton officiellement bilingue FR/DE. Environ 30 % de la population est germanophone. L'absence de version allemande coupe cette clientèle.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content">Site 100 % francophone. Pas de sélecteur de langue.</div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              Priorité 1 : Ajouter un sélecteur FR/DE visible dans la nav.<br>
+              Priorité 2 : Traduire les pages Accueil et Services (les plus visitées).<br>
+              Bonus SEO : <code>&lt;link rel="alternate" hreflang="de"&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">⭐</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Fiche Google Business non optimisée</div>
+          <p class="finding-desc">Le pack local Google (les 3 résultats carte) génère 40–60 % des clics sur les recherches «personal trainer Fribourg». Une fiche incomplète = invisibilité sur mobile.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <p class="finding-desc mt16">Actions à faire sur Google Business :</p>
+        <div class="checklist">
+          <div class="check-item"><span class="check-icon">📸</span><div class="check-text"><strong>Ajouter 10+ photos récentes</strong><span>Séances en action, lieu d'entraînement, portrait professionnel</span></div></div>
+          <div class="check-item"><span class="check-icon">🕐</span><div class="check-text"><strong>Définir les horaires de disponibilité</strong><span>Même approximatifs — c'est demandé à chaque recherche</span></div></div>
+          <div class="check-item"><span class="check-icon">💬</span><div class="check-text"><strong>Répondre à tous les avis existants</strong><span>Google favorise les profils qui interagissent</span></div></div>
+          <div class="check-item"><span class="check-icon">📌</span><div class="check-text"><strong>Catégorie principale : «Coach sportif»</strong><span>+ catégories secondaires : Nutritionniste, Salle de sport</span></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTENU
+══════════════════════════════════════════════ -->
+<section id="tab-contenu" class="section">
+  <p class="section-title">Contenu</p>
+  <p class="section-sub">Les pages sont trop légères pour convaincre. Un visiteur qui arrive sans vous connaître ne trouve pas assez d'information pour prendre rendez-vous.</p>
+
+  <div class="findings">
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge crit">📋</div>
+        <div>
+          <div class="finding-title"><span class="tag crit">Bloquant</span>Page Services — 6 titres sans descriptions</div>
+          <p class="finding-desc">Coaching personnel, nutrition, préparation mentale… sont listés avec un emoji et un titre. Aucun détail sur la durée, le déroulement, le profil cible ou les bénéfices concrets. L'accordéon existe mais reste vide.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <p class="finding-desc">Pour chaque service, renseigner au minimum :</p>
+        <div class="checklist">
+          <div class="check-item"><span class="check-icon">⏱</span><div class="check-text"><strong>Durée d'une séance</strong><span>Ex. : «Séances de 60 min en salle ou plein air»</span></div></div>
+          <div class="check-item"><span class="check-icon">👥</span><div class="check-text"><strong>Public cible</strong><span>Ex. : «Idéal pour les 40–65 ans qui reprennent le sport»</span></div></div>
+          <div class="check-item"><span class="check-icon">✅</span><div class="check-text"><strong>3 bénéfices clés</strong><span>Concrets et chiffrés si possible</span></div></div>
+          <div class="check-item"><span class="check-icon">📍</span><div class="check-text"><strong>Lieu de la prestation</strong><span>Chez le client ? Salle partenaire ? En extérieur ?</span></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge crit">💬</div>
+        <div>
+          <div class="finding-title"><span class="tag crit">Bloquant</span>Zéro témoignage client</div>
+          <p class="finding-desc">Les avis sont le facteur de décision n°1 pour un service personnel. Un visiteur inconnu a besoin de preuve sociale avant de passer à l'action.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content">Aucun témoignage, aucun avis, aucun résultat client visible sur le site.</div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              Ajouter 3–5 témoignages courts :<br>
+              • Prénom + initiale nom<br>
+              • Âge / profil (optionnel)<br>
+              • Objectif + résultat obtenu<br>
+              • Photo de profil si accord<br>
+              <em>Source : Google Reviews ou témoignage direct</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">🧑</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Section «Qui suis-je» trop courte</div>
+          <p class="finding-desc">3 lignes génériques. Votre parcours (53 ans de pratique, endurance, golf, expérience avec des publics variés dont des personnes fragiles) est un argument différenciant fort — surtout pour les clients 40+ et seniors.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content">«Je suis Arnaud, Personal Trainer passionné par le sport et ses valeurs. Grâce à mon expérience et une approche personnalisée…» (3 lignes)</div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              • Formation et diplômes (EREPS, Qualitop…)<br>
+              • Nombre d'années de pratique personnelle<br>
+              • Sports pratiqués (endurance, golf…)<br>
+              • Philosophie d'entraînement en 1–2 phrases<br>
+              • Pourquoi vous avez créé AbsoluteMotion<br>
+              • Photo en action (pas seulement portrait statique)
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge ok">✍️</div>
+        <div>
+          <div class="finding-title"><span class="tag ok">Bonus</span>Blog / contenu éducatif</div>
+          <p class="finding-desc">4–6 articles par an suffiraient à générer du trafic organique qualifié et à positionner votre expertise. Sujets idéaux pour votre cible :</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="checklist">
+          <div class="check-item"><span class="check-icon">🏃</span><div class="check-text"><strong>«Comment reprendre le sport après 50 ans»</strong><span>Trafic élevé, public cible exact</span></div></div>
+          <div class="check-item"><span class="check-icon">💪</span><div class="check-text"><strong>«Personal trainer vs salle de sport : ce qui change vraiment»</strong><span>Traite l'objection principale</span></div></div>
+          <div class="check-item"><span class="check-icon">🍎</span><div class="check-text"><strong>«5 erreurs de nutrition que font les sportifs du weekend»</strong><span>Valorise votre service conseil nutritionnel</span></div></div>
+          <div class="check-item"><span class="check-icon">⛰️</span><div class="check-text"><strong>«Préparer un trail en Préalpes fribourgeoises»</strong><span>SEO local fort + crédibilité expertise terrain</span></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONVERSION
+══════════════════════════════════════════════ -->
+<section id="tab-conversion" class="section">
+  <p class="section-title">Conversion</p>
+  <p class="section-sub">Le site informe mais ne guide pas assez vers l'action. Chaque page doit avoir une intention claire et un chemin de conversion visible.</p>
+
+  <div class="findings">
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge crit">🎯</div>
+        <div>
+          <div class="finding-title"><span class="tag crit">Bloquant</span>Aucun CTA sur la page d'accueil</div>
+          <p class="finding-desc">La page hero montre «ÉQUILIBRE.» et «Personal Trainer» mais aucun bouton d'action visible dans le premier écran. L'utilisateur ne sait pas quoi faire ensuite.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel — hero sans action</div>
+            <div class="ba-content">
+              <div style="padding: 20px; text-align: center; background: #111; border-radius: 6px; color: white">
+                <div style="font-size: 1.8rem; font-weight: 800; letter-spacing: .05em">ÉQUILIBRE.</div>
+                <div style="font-size: .85rem; opacity: .6; margin-top: 4px">PERSONAL TRAINER · Fribourg, Suisse</div>
+                <div style="margin-top: 12px; padding: 6px 14px; background: #1c5bff; display: inline-block; border-radius: 4px; font-size: .75rem">Certifié Qualitop</div>
+              </div>
+            </div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé — CTA double</div>
+            <div class="ba-content">
+              <div style="padding: 20px; text-align: center; background: #111; border-radius: 6px; color: white">
+                <div style="font-size: .65rem; letter-spacing: .15em; opacity: .5; margin-bottom: 4px">PERSONAL TRAINER · FRIBOURG</div>
+                <div style="font-size: 1.8rem; font-weight: 800; letter-spacing: .05em">TROUVEZ<br>VOTRE ÉQUILIBRE.</div>
+                <div style="font-size: .8rem; opacity: .65; margin: 8px 0 16px; max-width: 24ch; margin-inline: auto">Coaching sur mesure à Fribourg — en salle, en plein air ou à domicile</div>
+                <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap">
+                  <div style="padding: 8px 20px; background: #1c5bff; border-radius: 6px; font-size: .8rem; font-weight: 700">Séance d'essai gratuite →</div>
+                  <div style="padding: 8px 20px; border: 1px solid rgba(255,255,255,.3); border-radius: 6px; font-size: .8rem">Voir les services</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">💰</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Page Tarifs — fourchette sans ancrage</div>
+          <p class="finding-desc">«70.- à 150.- CHF» sans grille lisible crée une incertitude qui fait fuir. Le visiteur ne sait pas à quoi correspond le bas ou le haut de la fourchette.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <p class="finding-desc">Proposer une grille de 3 formules, même approximatives :</p>
+        <div class="fake-price-grid mt16">
+          <div class="fake-price-card">
+            <div class="fake-price-name">Découverte</div>
+            <div class="fake-price-amount">70.-</div>
+            <div class="fake-price-unit">CHF / séance</div>
+            <ul class="fake-price-features">
+              <li>Bilan initial inclus</li>
+              <li>Programme personnalisé</li>
+              <li>Coaching individuel 60 min</li>
+            </ul>
+          </div>
+          <div class="fake-price-card featured">
+            <div class="fake-price-name">⭐ Suivi mensuel</div>
+            <div class="fake-price-amount">95.-</div>
+            <div class="fake-price-unit">CHF / séance (×8/mois)</div>
+            <ul class="fake-price-features">
+              <li>Tout inclus ci-dessus</li>
+              <li>Suivi nutrition</li>
+              <li>Bilan mensuel</li>
+              <li>Support WhatsApp</li>
+            </ul>
+          </div>
+          <div class="fake-price-card">
+            <div class="fake-price-name">Premium</div>
+            <div class="fake-price-amount">150.-</div>
+            <div class="fake-price-unit">CHF / séance</div>
+            <ul class="fake-price-features">
+              <li>Suivi intensif</li>
+              <li>Nutrition + mental</li>
+              <li>Disponibilité élargie</li>
+              <li>Rapport de progression</li>
+            </ul>
+          </div>
+        </div>
+        <p class="finding-desc mt16" style="font-style:italic">⚠️ Ce sont des exemples — à adapter selon votre grille réelle et l'accord avec Qualitop.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">📬</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Contact — email iCloud peu professionnel + pas de formulaire</div>
+          <p class="finding-desc"><code>absolute.motion@icloud.com</code> visible en clair réduit la crédibilité et augmente le spam. L'absence de formulaire crée une friction de contact inutile.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content">
+              Email iCloud en texte brut visible<br>
+              Renvoi vers une boîte externe<br>
+              Pas de formulaire intégré
+            </div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              1. Créer alias <code>arnaud@absolutemotion.fr</code> (redirige vers iCloud)<br>
+              2. Formulaire simple : Prénom, Email, Téléphone, Objectif, Message<br>
+              3. Réponse automatique de confirmation<br>
+              4. Outils gratuits : <em>Formspark, Netlify Forms ou Formspree</em>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge ok">🎁</div>
+        <div>
+          <div class="finding-title"><span class="tag ok">Bonus</span>Proposer une séance d'essai gratuite ou un bilan offert</div>
+          <p class="finding-desc">Un «lead magnet» dédramatise l'engagement. C'est la technique la plus efficace pour les personal trainers indépendants : réduire la barrière à l'entrée.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="checklist">
+          <div class="check-item"><span class="check-icon">✅</span><div class="check-text"><strong>«Bilan de forme gratuit de 30 min»</strong><span>Annoncé dans le hero et le footer — pas dans les tarifs</span></div></div>
+          <div class="check-item"><span class="check-icon">✅</span><div class="check-text"><strong>Prise de RDV en ligne</strong><span>Calendly (gratuit) intégré dans la page Contact</span></div></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     TECHNIQUE
+══════════════════════════════════════════════ -->
+<section id="tab-technique" class="section">
+  <p class="section-title">Technique & Accessibilité</p>
+  <p class="section-sub">Points à corriger dans le code — certains impactent Google directement.</p>
+
+  <div class="findings">
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">♿</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Logos des certifications sans texte alternatif</div>
+          <p class="finding-desc">Les <code>alt</code> des logos sont <code>img-0</code>, <code>img-1</code>… ce qui est inutilisable pour les lecteurs d'écran et ignoré par Google Images.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content"><code>&lt;img alt="img-0"&gt;</code><br><code>&lt;img alt="img-1"&gt;</code><br>…</div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">
+              <code>&lt;img alt="Certification EduQua"&gt;</code><br>
+              <code>&lt;img alt="Certification Qualitop"&gt;</code><br>
+              <code>&lt;img alt="EREPS — European Register"&gt;</code>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge warn">🔄</div>
+        <div>
+          <div class="finding-title"><span class="tag warn">Important</span>Logos dupliqués dans le DOM (carousel infini)</div>
+          <p class="finding-desc">Les 7 logos d'accréditation sont présents deux fois dans le HTML pour créer l'effet de défilement. La copie doit être masquée aux lecteurs d'écran.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-grid">
+          <div class="ba-panel">
+            <div class="ba-label before">✗ Actuel</div>
+            <div class="ba-content">La copie des logos est lue deux fois par les assistants vocaux et indexée deux fois par Google.</div>
+          </div>
+          <div class="ba-panel">
+            <div class="ba-label after">✓ Recommandé</div>
+            <div class="ba-content">Ajouter <code>aria-hidden="true"</code> sur la seconde copie du carousel :<br><code>&lt;div class="carousel-copy" aria-hidden="true"&gt;</code></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge ok">📊</div>
+        <div>
+          <div class="finding-title"><span class="tag ok">Amélioration</span>Ajouter les données structurées (Schema.org)</div>
+          <p class="finding-desc">Les données structurées permettent à Google d'afficher des informations enrichies dans les résultats : horaires, avis, services proposés.</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-panel">
+          <div class="ba-label after">✓ JSON-LD à ajouter dans le &lt;head&gt; de chaque page</div>
+          <div class="ba-content" style="font-family: monospace; font-size: .78rem; line-height: 1.6">
+            {<br>
+            &nbsp;&nbsp;"@context": "https://schema.org",<br>
+            &nbsp;&nbsp;"@type": "LocalBusiness",<br>
+            &nbsp;&nbsp;"name": "Absolute Motion",<br>
+            &nbsp;&nbsp;"description": "Personal Trainer certifié à Fribourg",<br>
+            &nbsp;&nbsp;"url": "https://absolutemotion.fr",<br>
+            &nbsp;&nbsp;"address": { "@type": "PostalAddress", "addressLocality": "Fribourg", "addressCountry": "CH" },<br>
+            &nbsp;&nbsp;"priceRange": "70–150 CHF",<br>
+            &nbsp;&nbsp;"sameAs": ["https://www.instagram.com/absolutemotionx/"]<br>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <div class="badge ok">🔗</div>
+        <div>
+          <div class="finding-title"><span class="tag ok">Amélioration</span>Ajouter Open Graph pour les partages réseaux sociaux</div>
+          <p class="finding-desc">Quand quelqu'un partage le lien sur WhatsApp, LinkedIn ou Instagram, aucun aperçu visuel ne s'affiche (pas d'image og:image définie).</p>
+        </div>
+      </div>
+      <div class="finding-body">
+        <div class="ba-content" style="font-family: monospace; font-size: .78rem; line-height: 1.8">
+          &lt;meta property="og:title" content="Absolute Motion — Personal Trainer Fribourg"&gt;<br>
+          &lt;meta property="og:description" content="Coaching sur mesure à Fribourg. Certifié Qualitop."&gt;<br>
+          &lt;meta property="og:image" content="https://absolutemotion.fr/img/og-cover.jpg"&gt;<br>
+          &lt;meta property="og:type" content="website"&gt;
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     MAQUETTES
+══════════════════════════════════════════════ -->
+<section id="tab-maquettes" class="section">
+  <p class="section-title">Maquettes & Suggestions visuelles</p>
+  <p class="section-sub">Aperçus de ce que les améliorations donneraient visuellement — wireframes fonctionnels, pas des designs finaux.</p>
+
+  <hr class="divider">
+  <h3 style="font-family: var(--font-display); font-weight:700; font-size:1.3rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom: 6px">1 — Hero avec double CTA</h3>
+  <p class="finding-desc" style="margin-bottom:12px">Ajout d'un sous-titre géolocalisé, d'un CTA principal (séance d'essai) et d'un CTA secondaire (services).</p>
+
+  <div class="mockup">
+    <div class="mock-header">
+      <span class="mock-dot mock-red"></span><span class="mock-dot mock-yel"></span><span class="mock-dot mock-grn"></span>
+      <span class="mock-url">absolutemotion.fr</span>
+    </div>
+    <div class="mock-body">
+      <div class="fake-hero">
+        <div class="eyebrow">Personal Trainer certifié Qualitop · Fribourg, Suisse 🇨🇭</div>
+        <div class="headline">TROUVEZ<br>VOTRE ÉQUILIBRE.</div>
+        <div class="sub">Coaching individuel & petit groupe, nutrition et bien-être — sur mesure, à votre rythme.</div>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap">
+          <span class="fake-cta">Séance d'essai gratuite →</span>
+          <span class="fake-cta ghost">Voir les services</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h3 style="font-family: var(--font-display); font-weight:700; font-size:1.3rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom: 6px">2 — Services enrichis</h3>
+  <p class="finding-desc" style="margin-bottom:12px">Chaque service avec une description courte, un public cible et un lien vers les tarifs.</p>
+
+  <div class="mockup">
+    <div class="mock-header">
+      <span class="mock-dot mock-red"></span><span class="mock-dot mock-yel"></span><span class="mock-dot mock-grn"></span>
+      <span class="mock-url">absolutemotion.fr/services</span>
+    </div>
+    <div class="mock-body">
+      <div class="fake-section">
+        <div class="fake-section-title">Mes services</div>
+        <div class="fake-cards">
+          <div class="fake-card">
+            <div class="fake-card-icon">🏋️</div>
+            <div class="fake-card-title">Coaching personnel</div>
+            <div class="fake-card-desc">Séances 60 min, programme sur mesure, suivi de progression. Idéal si vous débutez ou revenez d'un arrêt.</div>
+            <a class="fake-card-link">Voir les tarifs →</a>
+          </div>
+          <div class="fake-card">
+            <div class="fake-card-icon">🍎</div>
+            <div class="fake-card-title">Conseil nutritionnel</div>
+            <div class="fake-card-desc">Bilan alimentaire et plan adapté à votre mode de vie. Complémentaire à l'entraînement.</div>
+            <a class="fake-card-link">En savoir plus →</a>
+          </div>
+          <div class="fake-card">
+            <div class="fake-card-icon">👵</div>
+            <div class="fake-card-title">Maintien en forme seniors</div>
+            <div class="fake-card-desc">Programme doux et progressif pour les 60+. Mobilité, équilibre, prévention des chutes.</div>
+            <a class="fake-card-link">En savoir plus →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h3 style="font-family: var(--font-display); font-weight:700; font-size:1.3rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom: 6px">3 — Section témoignages</h3>
+  <p class="finding-desc" style="margin-bottom:12px">Bloc à ajouter sur l'accueil et la page services.</p>
+
+  <div class="mockup">
+    <div class="mock-header">
+      <span class="mock-dot mock-red"></span><span class="mock-dot mock-yel"></span><span class="mock-dot mock-grn"></span>
+      <span class="mock-url">absolutemotion.fr — section témoignages</span>
+    </div>
+    <div class="mock-body">
+      <div class="fake-section">
+        <div class="fake-section-title">Ce que disent les clients</div>
+        <div class="fake-testimonial">
+          <q>En 3 mois avec Arnaud, j'ai perdu 8 kg et retrouvé une vraie énergie. La flexibilité des horaires m'a permis de tenir le rythme malgré mon travail.</q>
+          <cite>— Marie-Claire D., 47 ans, Villars-sur-Glâne</cite>
+        </div>
+        <div class="fake-testimonial">
+          <q>Après ma blessure au genou, je pensais ne plus pouvoir courir. Le programme de remise en forme progressif a tout changé. J'ai fini un trail de 20 km en juin.</q>
+          <cite>— François B., 51 ans, Fribourg</cite>
+        </div>
+        <div style="text-align:center; padding:16px 0 0">
+          <div style="display:inline-flex; align-items:center; gap:4px; font-size:.8rem; color:#1c5bff; font-weight:600">⭐⭐⭐⭐⭐ 4.9/5 — 23 avis Google</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PLAN D'ACTION
+══════════════════════════════════════════════ -->
+<section id="tab-plan" class="section">
+  <p class="section-title">Plan d'action</p>
+  <p class="section-sub">Classé par impact vs effort — commencez par le quadrant en haut à gauche.</p>
+
+  <div class="matrix">
+    <div class="matrix-cell">
+      <div class="matrix-header q1">🔴 PRIORITÉ 1 — Impact fort, effort faible</div>
+      <div class="matrix-items">
+        <div class="matrix-item">Corriger les titres &lt;title&gt; uniques par page</div>
+        <div class="matrix-item">Mentionner «Fribourg» dans les H1/H2</div>
+        <div class="matrix-item">Corriger les alt="" des logos (5 min)</div>
+        <div class="matrix-item">Ajouter aria-hidden sur les logos dupliqués</div>
+        <div class="matrix-item">Créer alias email @absolutemotion.fr</div>
+        <div class="matrix-item">Ajouter JSON-LD Schema.org dans le head</div>
+        <div class="matrix-item">Ajouter les balises Open Graph</div>
+      </div>
+    </div>
+    <div class="matrix-cell">
+      <div class="matrix-header q2">🟡 PRIORITÉ 2 — Impact fort, effort moyen</div>
+      <div class="matrix-items">
+        <div class="matrix-item">Étoffer les descriptions de chaque service</div>
+        <div class="matrix-item">Ajouter 3–5 témoignages clients (contacter des anciens clients)</div>
+        <div class="matrix-item">Ajouter CTA «Séance d'essai» dans le hero</div>
+        <div class="matrix-item">Formulaire de contact intégré (Formspree)</div>
+        <div class="matrix-item">Grille de tarifs 3 formules</div>
+        <div class="matrix-item">Compléter la fiche Google Business</div>
+      </div>
+    </div>
+    <div class="matrix-cell">
+      <div class="matrix-header q3">🟢 PRIORITÉ 3 — Valeur ajoutée, effort moyen</div>
+      <div class="matrix-items">
+        <div class="matrix-item">Enrichir la section «Qui suis-je»</div>
+        <div class="matrix-item">Ajouter Calendly pour prise de RDV en ligne</div>
+        <div class="matrix-item">Intégrer un mini-feed Instagram</div>
+        <div class="matrix-item">Ajouter section «Zone d'intervention» avec carte</div>
+      </div>
+    </div>
+    <div class="matrix-cell">
+      <div class="matrix-header q4">🔵 PRIORITÉ 4 — Vision à 6–12 mois</div>
+      <div class="matrix-items">
+        <div class="matrix-item">Version bilingue FR/DE du site</div>
+        <div class="matrix-item">Blog avec 4–6 articles/an</div>
+        <div class="matrix-item">Programme en ligne / vidéos</div>
+        <div class="matrix-item">Newsletter mensuelle clients</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+  <h3 style="font-family: var(--font-display); font-weight:700; font-size:1.2rem; letter-spacing:.04em; text-transform:uppercase; margin-bottom: 16px">Ce qu'une semaine de travail peut changer</h3>
+
+  <div class="checklist">
+    <div class="check-item"><span class="check-icon">📅</span><div class="check-text"><strong>Jour 1 — Code (1–2h)</strong><span>Titres uniques + «Fribourg» dans textes + alt="" + aria-hidden + JSON-LD + Open Graph</span></div></div>
+    <div class="check-item"><span class="check-icon">📅</span><div class="check-text"><strong>Jour 2 — Contenu (2–3h)</strong><span>Descriptions des 6 services + enrichir «Qui suis-je» + recueillir 3 témoignages</span></div></div>
+    <div class="check-item"><span class="check-icon">📅</span><div class="check-text"><strong>Jour 3 — Conversion (1h)</strong><span>CTA hero + formulaire Formspree + alias email + grille tarifaire</span></div></div>
+    <div class="check-item"><span class="check-icon">📅</span><div class="check-text"><strong>Jour 4 — Google Business (1h)</strong><span>Photos, horaires, catégories, réponses aux avis</span></div></div>
+    <div class="check-item"><span class="check-icon">📅</span><div class="check-text"><strong>Jour 5 — Test & vérification</strong><span>Google Search Console, test mobile, PageSpeed Insights</span></div></div>
+  </div>
+
+  <hr class="divider">
+  <p style="font-size:.85rem; color: var(--fg2); max-width:58ch; line-height:1.6">
+    💡 <strong>Outils gratuits recommandés</strong> :
+    <a href="https://search.google.com/search-console" target="_blank" style="color:var(--accent)">Google Search Console</a> (indexation) ·
+    <a href="https://pagespeed.web.dev" target="_blank" style="color:var(--accent)">PageSpeed Insights</a> (performance) ·
+    <a href="https://formspree.io" target="_blank" style="color:var(--accent)">Formspree</a> (formulaire) ·
+    <a href="https://calendly.com" target="_blank" style="color:var(--accent)">Calendly</a> (prise de RDV)
+  </p>
+</section>
+
+<script>
+function switchTab(id, btn) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  btn.classList.add('active');
+  btn.scrollIntoView({ inline: 'nearest', behavior: 'smooth' });
+}
+
+function toggleTheme() {
+  const root = document.documentElement;
+  const cur = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', cur === 'dark' ? 'light' : 'dark');
+}
+</script>
+
+</body></html>

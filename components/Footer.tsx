@@ -49,18 +49,24 @@ function Footer() {
             href="https://www.google.fr/maps/place/Fribourg,+Suisse/@46.8032463,7.1392126,5115m/data=!3m2!1e3!4b1!4m6!3m5!1s0x478e6ecd8d5a7d2f:0xbbe5d1f6b937c32e!8m2!3d46.8064773!4d7.1619719!16zL20vMDE1dHJi?entry=ttu&g_ep=EgoyMDI1MDkwOS4wIKXMDSoASAFQAw%3D%3D"
           >
             📍 Fribourg, Suisse 🇨🇭
-            </a>
-          <ul className="flex flex-row items-center justify-center gap-10">
+          </a>
+          {/* <ul className="flex flex-row items-center justify-center gap-10">
             <li className="">
               <a href="mailto:absolute.motion@icloud.com"><Mail /></a>
             </li>
-            {/* <li className="">
+            <li className="">
               <a href="tel:+41782145057"><Phone /></a>
-            </li> */}
+            </li>
             <li className="">
               <a href="https://www.instagram.com/absolutemotionx/"><Instagram /></a>
             </li>
-          </ul>
+          </ul> */}
+          <a 
+            href="/contact"
+            className="bg-mainColor px-3 rounded-xl text-xl font-calSans text-clearColor hover:bg-mainColor duration-100 cursor-pointer hover:border-2 border-darkColor hover:text-darkColor"
+          >
+            Me contacter
+          </a>
         </div>
 
       </div>
