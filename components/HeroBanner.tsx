@@ -72,16 +72,15 @@ function HeroBanner() {
           <p className="font-rajdhaniRegular uppercase tracking-widest text-clearColor/70 text-sm md:text-base mt-1.5 mb-4">
             Personal Trainer
           </p>
-          <p className="font-rajdhaniRegular text-clearColor/80 text-base max-w-lg leading-relaxed mb-5">
-            De l'équipe de France junior de rugby à XIII au cockpit d'un
-            hélicoptère, puis au coaching sportif —{" "}
-            <strong className="text-clearColor font-normal">
-              trois vies, un même fil conducteur : le dépassement de soi.
+          <p className="font-rajdhaniRegular text-clearColor text-base max-w-lg leading-relaxed mb-5 font-bold">
+            De l'équipe de France de Rugby à XIII au cockpit d'un hélicoptère, puis au coaching sportif, un fil conducteur :{" "}
+            <strong className="text-clearColor font-bold">
+              le dépassement de soi vers l'équilibre.
             </strong>
             <br/>
             Aujourd'hui, je mets ce parcours d'exigence au service de votre réussite.
           </p>
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3 font-extrabol">
             <div className="flex flex-wrap gap-2">
               {chips.map((c) => (
                 <span
@@ -98,7 +97,7 @@ function HeroBanner() {
             </div>
             <a
               href="/contact"
-              className="bg-mainColor text-clearColor rounded-lg py-2.5 px-5 font-calSans hover:opacity-90 duration-150"
+              className="bg-gradient-to-br from-darkColor to-mainColor text-clearColor rounded-xl py-2.5 px-5 font-calSans hover:opacity-90 duration-150"
             >
               Réserver un bilan →
             </a>

@@ -78,7 +78,7 @@ const ReservationForm = () => {
             </p>
             <button
               onClick={() => setSucceeded(false)}
-              className="bg-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
+              className="bg-gradient-to-br from-darkColor to-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
             >
               Envoyer un autre message
             </button>
@@ -202,7 +202,7 @@ const ReservationForm = () => {
                 <button
                   type="submit"
                   disabled={sending}
-                  className="w-full flex items-center justify-center gap-2 bg-mainColor rounded-xl py-3.5 text-lg font-calSans text-clearColor hover:opacity-90 duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full flex items-center justify-center gap-2 bg-gradient-to-br from-darkColor to-mainColor rounded-xl py-3.5 text-lg font-calSans text-clearColor hover:opacity-90 duration-150 disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   <Send className="w-5 h-5" />
                   {sending ? "Envoi…" : "Envoyer le message"}

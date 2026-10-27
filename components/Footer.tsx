@@ -25,7 +25,7 @@ function Footer() {
       </nav>
 
       <a
-        href="https://portfolio-pablo-teal.vercel.app/"
+        href="https://www.pabloortega.fr/"
         className="text-darkColor hover:underline py-2 text-xs w-full bg-mainColor flex justify-center items-center"
       >
         © This is a PABLO ORTEGA creation - 2025

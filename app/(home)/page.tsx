@@ -108,7 +108,7 @@ export default async function Home() {
       <ImageCarousel />
 
       {/* ── Bandeau chiffres ── */}
-      <section className="bg-mainColor py-8 px-6 flex flex-wrap justify-center gap-x-12 gap-y-6">
+      <section className="bg-gradient-to-br from-darkColor to-mainColor py-8 px-6 flex flex-wrap justify-center gap-x-12 gap-y-6">
         {STATS.map((s) => (
           <div key={s.label} className="text-center text-clearColor max-w-[200px]">
             <div className="font-leagueSpartan font-bold text-4xl md:text-5xl leading-none">
@@ -257,7 +257,7 @@ export default async function Home() {
         <div className="flex flex-wrap gap-3 justify-center">
           <a
             href="/contact"
-            className="bg-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
+            className="bg-gradient-to-br from-darkColor to-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
           >
             Bilan gratuit →
           </a>

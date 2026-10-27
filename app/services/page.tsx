@@ -351,7 +351,7 @@ async function Services() {
         <div className="flex justify-center">
           <a
             href="/contact"
-            className="bg-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
+            className="bg-gradient-to-br from-darkColor to-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
           >
             Me contacter →
           </a>

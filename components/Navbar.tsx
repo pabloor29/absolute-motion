@@ -55,7 +55,7 @@ function Navbar() {
         whileInView="visible"
         viewport={{ once: true, margin: "50%" }}
         variants={Variants}
-        className="fixed w-full h-24 backdrop-blur justify-between items-center text-white px-8 z-50 hidden lg:flex bg-mainColor/50"
+        className="fixed w-full h-24 backdrop-blur justify-between items-center text-white px-8 z-50 hidden lg:flex bg-gradient-to-br from-darkColor/50 to-mainColor/50"
       >
         <a href="/" className="">
           <img 
