@@ -8,6 +8,13 @@ type Props = {
   showAllLink?: boolean;
 };
 
+// "Pablo Ortega" → "Pablo O." (prénom + initiale du nom)
+function displayName(full: string): string {
+  const parts = full.trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) return parts[0] ?? "";
+  return `${parts[0]} ${parts[parts.length - 1][0].toUpperCase()}.`;
+}
+
 export default function ReviewsSection({ title, reviews, showAllLink }: Props) {
   return (
     <section className="w-full bg-gradient-to-br from-darkColor to-mainColor py-16 flex flex-col items-center">
@@ -25,7 +32,7 @@ export default function ReviewsSection({ title, reviews, showAllLink }: Props) {
               {r.title && <h3 className="font-calSans text-lg">{r.title}</h3>}
               {r.body && <p className="font-rajdhaniRegular text-sm text-clearColor/90 whitespace-pre-line">{r.body}</p>}
               <div className="mt-auto pt-2 font-rajdhaniRegular text-sm text-clearColor/70">
-                — {r.author_name} · {new Date(r.review_date).toLocaleDateString("fr-CH")}
+                — {displayName(r.author_name)} · {new Date(r.review_date).toLocaleDateString("fr-CH")}
               </div>
             </article>
           ))}
