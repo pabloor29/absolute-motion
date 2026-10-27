@@ -45,7 +45,7 @@ function HeroBanner() {
       />
 
       {/* Mot central qui défile avec les images */}
-      <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none">
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pb-72 md:pb-0 pointer-events-none">
         <span
           key={currentBgIndex}
           className="hero-word font-leagueSpartan font-bold text-7xl md:text-[10rem] text-clearColor uppercase tracking-tight leading-none text-center drop-shadow-xl"
@@ -70,7 +70,7 @@ function HeroBanner() {
             Arnaud
           </h1>
           <p className="font-rajdhaniRegular uppercase tracking-widest text-clearColor/70 text-sm md:text-base mt-1.5 mb-4">
-            Coach &amp; Personal Trainer
+            Personal Trainer
           </p>
           <p className="font-rajdhaniRegular text-clearColor/80 text-base max-w-lg leading-relaxed mb-5">
             De l'équipe de France junior de rugby à XIII au cockpit d'un
@@ -78,6 +78,8 @@ function HeroBanner() {
             <strong className="text-clearColor font-normal">
               trois vies, un même fil conducteur : le dépassement de soi.
             </strong>
+            <br/>
+            Aujourd'hui, je mets ce parcours d'exigence au service de votre réussite.
           </p>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex flex-wrap gap-2">

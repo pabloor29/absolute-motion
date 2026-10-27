@@ -207,10 +207,10 @@ async function Services() {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href="/contact"
-              className="bg-clearColor text-darkColor rounded-xl py-3 px-6 font-calSans text-lg hover:opacity-90 duration-150"
+              href="#personal-training"
+              className="border-2 border-clearColor/30 text-clearColor rounded-xl py-3 px-6 font-calSans text-lg hover:border-clearColor duration-150"
             >
-              Bilan gratuit →
+              Personal Training
             </a>
             <a
               href="#coaching-distance"
@@ -218,21 +218,12 @@ async function Services() {
             >
               Coaching à distance
             </a>
-          </div>
-          <div className="flex flex-wrap items-center gap-3 mt-9">
-            {[
-              <><strong className="text-clearColor">Qualitop</strong> certifié</>,
-              <strong className="text-clearColor" key="sa">Swiss Active</strong>,
-              <><strong className="text-clearColor">EREPS</strong> européen</>,
-              <>📍 Fribourg &amp; région</>,
-            ].map((b, i) => (
-              <span
-                key={i}
-                className="font-rajdhaniRegular text-sm text-clearColor/60 border border-clearColor/15 rounded-full px-3 py-1"
-              >
-                {b}
-              </span>
-            ))}
+            <a
+              href="#hybride"
+              className="border-2 border-clearColor/30 text-clearColor rounded-xl py-3 px-6 font-calSans text-lg hover:border-clearColor duration-150"
+            >
+              Hybride
+            </a>
           </div>
         </div>
       </section>

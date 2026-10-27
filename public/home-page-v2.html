@@ -1,0 +1,689 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Arnaud — Absolute Motion (Copy)</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;600;700;800&family=Inter:wght@400;500;600&display=swap">
+
+<style>
+:root {
+  --bg: #f3f5f9;
+  --bg2: #ffffff;
+  --fg: #0d0f16;
+  --fg2: #475569;
+  --fg3: #94a3b8;
+  --accent: #1c5bff;
+  --accent2: #0a3acc;
+  --accent-dim: #dce9ff;
+  --border: #dde3ee;
+  --card: #ffffff;
+  --dark-bg: #080b14;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #080b14;
+    --bg2: #0f1220;
+    --fg: #edf0fb;
+    --fg2: #8899bb;
+    --fg3: #3a4a68;
+    --accent: #4d84ff;
+    --accent2: #6699ff;
+    --accent-dim: #0d1d40;
+    --border: #181e30;
+    --card: #0f1220;
+    --dark-bg: #050709;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #080b14;
+  --bg2: #0f1220;
+  --fg: #edf0fb;
+  --fg2: #8899bb;
+  --fg3: #3a4a68;
+  --accent: #4d84ff;
+  --accent2: #6699ff;
+  --accent-dim: #0d1d40;
+  --border: #181e30;
+  --card: #0f1220;
+  --dark-bg: #050709;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0 }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 15px;
+  line-height: 1.65;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0;
+}
+
+/* ── Nav ── */
+.site-nav {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: rgba(8,11,20,.93);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px max(24px, env(safe-area-inset-left,0px));
+  border-bottom: 1px solid rgba(255,255,255,.05);
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  background: #080b14;
+  z-index: 21;
+}
+.nav-logo {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+}
+.nav-logo em { font-style: normal; color: var(--accent) }
+.nav-cta {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 7px;
+  padding: 7px 16px;
+  font-size: .8rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+.nav-cta:hover { background: var(--accent2) }
+.theme-btn {
+  background: rgba(255,255,255,.07);
+  border: none;
+  border-radius: 7px;
+  color: rgba(255,255,255,.55);
+  padding: 7px 11px;
+  font-size: .8rem;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+/* ── Hero portrait ── */
+.hero {
+  background: var(--dark-bg);
+  padding: 0 max(24px, env(safe-area-inset-left,0px));
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  min-height: 480px;
+  position: relative;
+  overflow: hidden;
+  gap: 0;
+}
+@media (max-width: 640px) {
+  .hero { grid-template-columns: 1fr; padding-block: 48px 0 }
+}
+.hero-glow {
+  position: absolute;
+  left: 38%;
+  top: -80px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(28,91,255,.22) 0%, transparent 68%);
+  pointer-events: none;
+}
+.hero-content {
+  padding: 64px 0 64px;
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 640px) { .hero-content { padding-bottom: 32px } }
+
+.hero-eyebrow {
+  font-size: .7rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+.hero-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  line-height: 1;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: #fff;
+  margin-bottom: 6px;
+}
+.hero-role {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,.45);
+  margin-bottom: 28px;
+}
+.hero-tagline {
+  font-size: 1rem;
+  color: rgba(255,255,255,.6);
+  line-height: 1.65;
+  max-width: 40ch;
+  margin-bottom: 32px;
+}
+.hero-tagline strong { color: rgba(255,255,255,.9) }
+.hero-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 13px;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 999px;
+  font-size: .75rem;
+  color: rgba(255,255,255,.65);
+  font-weight: 500;
+}
+.chip.accent { border-color: rgba(77,132,255,.4); color: var(--accent) }
+
+.hero-photo-col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+  min-height: 380px;
+  position: relative;
+}
+@media (max-width: 640px) {
+  .hero-photo-col {
+    justify-content: center;
+    min-height: 220px;
+  }
+}
+/* Photo placeholder — remplacez par une vraie <img> */
+.photo-placeholder {
+  width: 280px;
+  height: 380px;
+  background: linear-gradient(160deg, #1a2640 0%, #0d1830 60%, rgba(28,91,255,.08) 100%);
+  border-radius: 16px 16px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-bottom: none;
+  color: rgba(255,255,255,.25);
+  font-size: .8rem;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+.photo-placeholder::before {
+  content: "👤";
+  font-size: 4rem;
+  opacity: .4;
+}
+.photo-placeholder span { letter-spacing: .06em; text-transform: uppercase; font-size: .7rem }
+
+/* ── Valeurs / chiffres ── */
+.stats-band {
+  background: var(--accent);
+  padding: 28px max(24px, env(safe-area-inset-left,0px));
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+.stat {
+  text-align: center;
+  color: #fff;
+}
+.stat-num {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 2.4rem;
+  line-height: 1;
+  letter-spacing: -.01em;
+}
+.stat-label {
+  font-size: .72rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  opacity: .75;
+  margin-top: 3px;
+}
+
+/* ── Corps de page ── */
+.page-wrap {
+  max-width: 880px;
+  margin-inline: auto;
+  padding: 56px max(24px, env(safe-area-inset-left,0px)) 64px;
+}
+
+/* ── Intro narrative ── */
+.intro-block {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 48px;
+  align-items: start;
+  margin-bottom: 56px;
+}
+@media (max-width: 620px) { .intro-block { grid-template-columns: 1fr; gap: 28px } }
+
+.intro-lead {
+  font-size: 1.15rem;
+  color: var(--fg);
+  line-height: 1.7;
+  font-weight: 400;
+}
+.intro-lead strong { color: var(--accent) }
+
+.intro-side {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.side-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.side-card-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px }
+.side-card-text strong { font-size: .88rem; display: block; margin-bottom: 2px }
+.side-card-text span { font-size: .8rem; color: var(--fg2) }
+
+/* ── Section titre ── */
+.s-eyebrow {
+  font-size: .68rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.s-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.6rem, 4.5vw, 2.4rem);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  line-height: 1.05;
+  margin-bottom: 28px;
+  text-wrap: balance;
+}
+.divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 48px 0;
+}
+
+/* ── Mission en blocs ── */
+.mission-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-bottom: 32px;
+}
+@media (max-width: 560px) { .mission-grid { grid-template-columns: 1fr } }
+
+.mission-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  transition: box-shadow .18s;
+}
+.mission-card:hover { box-shadow: 0 3px 20px rgba(28,91,255,.09) }
+.mission-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.mission-card h3 {
+  font-size: .92rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+.mission-card p {
+  font-size: .82rem;
+  color: var(--fg2);
+  line-height: 1.55;
+}
+
+/* ── Philosophie ── */
+.philosophy-block {
+  background: var(--dark-bg);
+  border-radius: 16px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 48px;
+}
+.philosophy-block::after {
+  content: "";
+  position: absolute;
+  right: -40px; bottom: -60px;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(28,91,255,.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+.philosophy-quote {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+  color: #fff;
+  line-height: 1.25;
+  max-width: 52ch;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+.philosophy-quote em { font-style: normal; color: var(--accent) }
+.philosophy-sub {
+  font-size: .88rem;
+  color: rgba(255,255,255,.5);
+  max-width: 56ch;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Certifications ── */
+.certs-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 48px;
+}
+.cert-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 16px;
+  font-size: .82rem;
+  font-weight: 600;
+}
+.cert-pill .cert-emoji { font-size: 1.1rem }
+.cert-pill .cert-sub { display: block; font-size: .72rem; color: var(--fg3); font-weight: 400 }
+
+/* ── Sports pratiqués ── */
+.sports-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+@media (max-width: 520px) { .sports-grid { grid-template-columns: 1fr 1fr } }
+
+.sport-tag {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 12px 14px;
+  font-size: .82rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sport-tag .sport-icon { font-size: 1.2rem }
+
+/* ── Témoignage Pablo ── */
+.testi-solo {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 12px 12px 0;
+  padding: 20px 22px;
+  margin-bottom: 48px;
+}
+.testi-stars { color: #f59e0b; margin-bottom: 8px; font-size: .9rem }
+.testi-text {
+  font-size: .95rem;
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  color: var(--fg);
+}
+.testi-author { font-size: .78rem; color: var(--fg3); font-weight: 600 }
+
+/* ── CTA ── */
+.cta-section {
+  background: var(--fg);
+  padding: 56px max(24px, env(safe-area-inset-left,0px));
+  text-align: center;
+}
+.cta-section h2 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  text-transform: uppercase;
+  letter-spacing: .02em;
+  color: var(--bg);
+  margin-bottom: 12px;
+  line-height: 1.05;
+}
+.cta-section p { color: rgba(255,255,255,.5); font-size: .9rem; margin-bottom: 26px; max-width: 46ch; margin-inline: auto }
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap }
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 9px;
+  padding: 12px 26px;
+  font-weight: 700;
+  font-size: .9rem;
+  text-decoration: none;
+  display: inline-block;
+  border: none;
+  cursor: pointer;
+}
+.btn-primary:hover { background: var(--accent2) }
+.btn-ghost-dark {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.22);
+  color: rgba(255,255,255,.75);
+  border-radius: 9px;
+  padding: 12px 26px;
+  font-weight: 600;
+  font-size: .9rem;
+  text-decoration: none;
+  display: inline-block;
+}
+.btn-ghost-dark:hover { border-color: rgba(255,255,255,.5) }
+</style>
+
+<!-- ─── Navigation ─── -->
+<nav class="site-nav">
+  <a class="nav-logo" href="#"><em>Absolute</em>Motion</a>
+  <div style="display:flex;align-items:center;gap:0">
+    <button class="theme-btn" onclick="toggleTheme()">☾</button>
+    <a class="nav-cta" href="#contact">Bilan gratuit</a>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Personal Trainer · Fribourg, Suisse 🇨🇭</div>
+    <h1 class="hero-name">Arnaud</h1>
+    <div class="hero-role">Personal Trainer</div>
+    <p class="hero-tagline">
+      De l'équipe de France de Rugby à XIII au cockpit d'un hélicoptère, puis au coaching sportif, un fil conducteur : <strong>le dépassement de soi vers l'équilibre.</strong> Aujourd'hui, je mets ce parcours d'exigence au service de votre réussite.
+    </p>
+    <div class="hero-chips">
+      <span class="chip">📍 Fribourg &amp; région</span>
+    </div>
+    <a class="btn-primary" href="#contact">Réserver un bilan →</a>
+  </div>
+  <div class="hero-photo-col">
+    <!-- Remplacez ce bloc par votre photo : <img src="arnaud.jpg" alt="Arnaud — Personal Trainer Fribourg" style="width:280px;height:380px;object-fit:cover;border-radius:16px 16px 0 0"> -->
+    <div class="photo-placeholder">
+      <span>Photo d'Arnaud</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Bandeau chiffres ─── -->
+<div class="stats-band">
+  <div class="stat">
+    <div class="stat-num">8</div>
+    <div class="stat-label">Saisons de Rugby à XIII — Équipe de France Junior &amp; Universitaire</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">29</div>
+    <div class="stat-label">ans Pilote Hélicoptère</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">45</div>
+    <div class="stat-label">ans de pratiques sportives diverses</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">2024</div>
+    <div class="stat-label">Diplôme de Personal Trainer</div>
+  </div>
+</div>
+
+<!-- ─── Corps ─── -->
+<div class="page-wrap">
+
+  <!-- Intro narrative -->
+  <div class="intro-block">
+    <div>
+      <div class="s-eyebrow">Qui suis-je</div>
+      <div class="s-title">Rugby, hélicoptère,<br>et coaching. Le même ADN.</div>
+      <p class="intro-lead">
+        Je suis Arnaud. Rugby international, cockpit d'hélicoptère, Personal Training : trois univers en apparence distincts, unis par les mêmes impératifs : rigueur, précision et maîtrise. Ce parcours façonne aujourd'hui mon regard de coach. <strong>AbsoluteMotion</strong>, c'est ce parcours mis au service de votre accompagnement. La même acuité qu'en vol pour analyser votre condition physique. La même exigence que sur un terrain pour structurer vos efforts. Le même engagement pour être là à chaque étape. Pas de protocoles standardisés : uniquement du sur-mesure, taillé pour vous.
+      </p>
+    </div>
+    <div class="intro-side">
+      <div class="side-card">
+        <span class="side-card-icon">📍</span>
+        <div class="side-card-text">
+          <strong>PT · Séances autour de Fribourg</strong>
+          <span>En plein air, en salle ou à domicile</span>
+        </div>
+      </div>
+      <div class="side-card">
+        <span class="side-card-icon">🌐</span>
+        <div class="side-card-text">
+          <strong>Coaching à distance</strong>
+          <span>Programmes structurés partout en Suisse</span>
+        </div>
+      </div>
+      <div class="side-card">
+        <span class="side-card-icon">🏥</span>
+        <div class="side-card-text">
+          <strong>Publics fragilisés</strong>
+          <span>Seniors, rééducation et profils spécifiques</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Citation -->
+  <div class="philosophy-block" style="margin-top:0;margin-bottom:48px">
+    <div class="philosophy-quote">
+      « La rigueur et la précision ne sont pas de simples concepts : ce sont des expériences forgées sur le terrain et en cockpit. <em>C'est ce regard expert que je mets aujourd'hui au service de votre transformation.</em> »
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- Mission -->
+  <div class="s-eyebrow">Ma mission</div>
+  <div class="s-title">Ce que j'apporte à chaque athlète.</div>
+
+  <div class="mission-grid">
+    <div class="mission-card">
+      <span class="mission-icon">🎯</span>
+      <div>
+        <h3>Sur-mesure total</h3>
+        <p>Chaque programme est conçu en fonction de vos objectifs, de vos contraintes et de votre quotidien. Qu'il s'agisse de reprendre le sport en douceur, de préparer un triathlon ou de retrouver de l'énergie, le plan s'adapte à vous.</p>
+      </div>
+    </div>
+    <div class="mission-card">
+      <span class="mission-icon">📈</span>
+      <div>
+        <h3>Progression mesurable</h3>
+        <p>Bilans réguliers et ajustements constants. Je structure chaque cycle pour que vous puissiez voir et ressentir vos progrès, étape après étape, sans précipitation.</p>
+      </div>
+    </div>
+    <div class="mission-card">
+      <span class="mission-icon">🧠</span>
+      <div>
+        <h3>Corps et mental indissociables</h3>
+        <p>L’exigence du rugby et la gestion des risques en vol m'ont enseigné qu'un corps fort a besoin d'un mental solide. J'intègre cette synergie mentale et physique dans chacun de mes accompagnements.</p>
+      </div>
+    </div>
+    <div class="mission-card">
+      <span class="mission-icon">🤝</span>
+      <div>
+        <h3>Présent à chaque étape</h3>
+        <p>Disponible entre les séances pour guider, encourager et ajuster le tir. Vous n'êtes jamais seul face à vos défis.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sports pratiqués -->
+  <div class="s-eyebrow">Pratique personnelle</div>
+  <div class="s-title">Les sports que je pratique.</div>
+  <div class="sports-grid" style="margin-bottom:48px">
+    <div class="sport-tag"><span class="sport-icon">🏊🚴🏃</span> Triathlon</div>
+    <div class="sport-tag"><span class="sport-icon">⛰️</span> Trail running</div>
+    <div class="sport-tag"><span class="sport-icon">💪</span> Renfo · Musculation</div>
+    <div class="sport-tag"><span class="sport-icon">🪂</span> Hike &amp; Fly</div>
+  </div>
+
+  <!-- Témoignage -->
+  <div class="testi-solo">
+    <div class="testi-stars">★★★★★</div>
+    <p class="testi-text">«&nbsp;Un accompagnement au top, tant sur le plan sportif que mental. J'ai énormément évolué grâce aux conseils et aux entraînements ! Je recommande !!!&nbsp;»</p>
+    <div class="testi-author">— Pablo Ortega · octobre 2026</div>
+  </div>
+
+</div>
+
+<!-- ─── CTA ─── -->
+<div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:56px max(24px, env(safe-area-inset-left,0px));background:var(--bg)">
+  <a class="btn-primary" href="https://absolutemotion.fr/contact" style="font-size:1rem;padding:14px 32px">Bilan gratuit →</a>
+  <a style="display:inline-block;background:transparent;border:2px solid var(--accent);color:var(--accent);border-radius:9px;padding:14px 32px;font-weight:700;font-size:1rem;text-decoration:none" href="https://absolutemotion.fr/services">Mes services</a>
+</div>
+
+<script>
+function toggleTheme() {
+  const r = document.documentElement;
+  r.setAttribute('data-theme', r.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+}
+</script>
+
+</body></html>
