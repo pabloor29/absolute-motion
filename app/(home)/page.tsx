@@ -7,50 +7,50 @@ import { getApprovedReviews, getContent } from "@/lib/data";
 import { Analytics } from "@vercel/analytics/react";
 
 const STATS = [
-  { num: "2", label: "saisons en équipe de France junior XIII" },
-  { num: "29", label: "ans pilote — armée & secours héliporté" },
-  { num: "45", label: "ans de pratique sportive" },
-  { num: "2024", label: "Personal Trainer diplômé" },
+  { num: "8", label: "saisons de Rugby à XIII — équipe de France junior & universitaire" },
+  { num: "29", label: "ans pilote hélicoptère" },
+  { num: "45", label: "ans de pratiques sportives diverses" },
+  { num: "2024", label: "diplôme de Personal Trainer" },
 ];
 
 const SIDE_CARDS = [
   {
     icon: "📍",
-    title: "Basé à Fribourg",
-    text: "Séances en plein air, en salle ou à domicile autour de Fribourg",
+    title: "PT · Séances autour de Fribourg",
+    text: "En plein air, en salle ou à domicile",
   },
   {
     icon: "🌐",
     title: "Coaching à distance",
-    text: "Programmes structurés pour trail, cyclisme et triathlon, partout en Suisse",
+    text: "Programmes structurés partout en Suisse",
   },
   {
     icon: "🏥",
     title: "Publics fragilisés",
-    text: "Expérience avec les seniors, personnes en rééducation et publics spéciaux",
+    text: "Seniors, rééducation et profils spécifiques",
   },
 ];
 
 const MISSION = [
   {
     icon: "🎯",
-    title: "Des objectifs qui vous ressemblent",
-    text: "Pas de programme standard copié-collé. Chaque plan est construit autour de vos envies, de vos contraintes et de votre niveau de départ — qu'il s'agisse de reprendre le sport, de perdre du poids ou de préparer un triathlon.",
+    title: "Sur-mesure total",
+    text: "Chaque programme est conçu en fonction de vos objectifs, de vos contraintes et de votre quotidien. Qu'il s'agisse de reprendre le sport en douceur, de préparer un triathlon ou de retrouver de l'énergie, le plan s'adapte à vous.",
   },
   {
     icon: "📈",
-    title: "Une progression mesurable",
-    text: "Je structure chaque cycle d'entraînement pour que vous voyiez — et ressentiez — l'évolution. Bilans réguliers, ajustements continus, célébration des progrès, même les petits.",
+    title: "Progression mesurable",
+    text: "Bilans réguliers et ajustements constants. Je structure chaque cycle pour que vous puissiez voir et ressentir vos progrès, étape après étape, sans précipitation.",
   },
   {
     icon: "🧠",
-    title: "Corps et mental, ensemble",
-    text: "La performance physique passe aussi par la tête. J'intègre des outils de préparation mentale — visualisation, gestion du stress, ancrage — pour vous aider à tenir dans la durée.",
+    title: "Corps et mental indissociables",
+    text: "L'exigence du rugby et la gestion des risques en vol m'ont enseigné qu'un corps fort a besoin d'un mental solide. J'intègre cette synergie mentale et physique dans chacun de mes accompagnements.",
   },
   {
     icon: "🤝",
-    title: "À vos côtés à chaque étape",
-    text: "Présent à chaque séance, disponible entre les entraînements. Avec AbsoluteMotion, vous n'êtes jamais seul face à vos objectifs — j'adapte, j'encourage, je recadre si besoin.",
+    title: "Présent à chaque étape",
+    text: "Disponible entre les séances pour guider, encourager et ajuster le tir. Vous n'êtes jamais seul face à vos défis.",
   },
 ];
 
@@ -128,25 +128,18 @@ export default async function Home() {
         <div className="grid grid-cols-1 md:grid-cols-5 gap-10 items-start">
           <div className="md:col-span-3">
             <Eyebrow>Qui suis-je</Eyebrow>
-            <Title>Rugby, hélicoptère, et coaching — le même ADN.</Title>
+            <Title>Rugby, hélicoptère, et coaching. Le même ADN.</Title>
             <p className="font-rajdhaniRegular text-darkColor text-lg leading-relaxed">
-              Je suis Arnaud — rugbyman en équipe de France junior à XIII, pilote
-              d'hélicoptère pendant une grande partie de ma vie professionnelle,
-              et aujourd'hui Personal Trainer certifié Qualitop à{" "}
-              <strong className="text-mainColor">Fribourg</strong>. Trois
-              chapitres très différents, mais un même apprentissage : la
-              performance se construit dans la durée, avec de la méthode, de
-              l'engagement et une tête bien faite autant qu'un corps bien
-              entraîné.
-            </p>
-            <p className="font-rajdhaniRegular text-darkColor text-lg leading-relaxed mt-4">
-              À 53 ans, je pratique toujours — triathlon, trail, renforcement
-              musculaire, hike&amp;fly. Ce que je vous propose,{" "}
-              <strong className="text-mainColor">je le vis moi-même</strong>.
-              J'ai créé <strong className="text-mainColor">AbsoluteMotion</strong>{" "}
-              pour mettre toutes ces expériences au service d'un coaching vraiment
-              personnalisé : pas de programme standard, pas de formule générique
-              — juste ce qui fonctionne, pour vous, maintenant.
+              Je suis Arnaud. Rugby international, cockpit d'hélicoptère, Personal
+              Training : trois univers en apparence distincts, unis par les mêmes
+              impératifs : rigueur, précision et maîtrise. Ce parcours façonne
+              aujourd'hui mon regard de coach.{" "}
+              <strong className="text-mainColor">AbsoluteMotion</strong>, c'est ce
+              parcours mis au service de votre accompagnement. La même acuité
+              qu'en vol pour analyser votre condition physique. La même exigence
+              que sur un terrain pour structurer vos efforts. Le même engagement
+              pour être là à chaque étape. Pas de protocoles standardisés :
+              uniquement du sur-mesure, taillé pour vous.
             </p>
           </div>
           <div className="md:col-span-2 flex flex-col gap-3">
@@ -169,11 +162,24 @@ export default async function Home() {
           </div>
         </div>
 
+        {/* Citation */}
+        <div className="relative overflow-hidden bg-darkColor rounded-2xl p-8 md:p-10 mt-8">
+          <p className="font-calSans text-xl md:text-2xl text-clearColor leading-snug max-w-3xl">
+            «&nbsp;La rigueur et la précision ne sont pas de simples concepts :
+            ce sont des expériences forgées sur le terrain et en cockpit.{" "}
+            <span className="text-[#5b6bff]">
+              C'est ce regard expert que je mets aujourd'hui au service de votre
+              transformation.
+            </span>
+            &nbsp;»
+          </p>
+        </div>
+
         <hr className="border-darkColor/10 my-12" />
 
         {/* Mission */}
         <Eyebrow>Ma mission</Eyebrow>
-        <Title>Vous guider vers votre meilleur équilibre.</Title>
+        <Title>Ce que j'apporte à chaque athlète.</Title>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {MISSION.map((m) => (
             <div
@@ -191,25 +197,6 @@ export default async function Home() {
               </div>
             </div>
           ))}
-        </div>
-
-        {/* Philosophie */}
-        <div className="relative overflow-hidden bg-darkColor rounded-2xl p-8 md:p-10 mt-8">
-          <p className="font-calSans text-xl md:text-2xl text-clearColor leading-snug max-w-3xl">
-            «&nbsp;Le sport m'a tout appris — la rigueur sur un terrain de rugby,
-            la précision dans un cockpit, la résilience sur un trail.{" "}
-            <span className="text-[#5b6bff]">
-              Ce regard forge un coach différent.
-            </span>
-            &nbsp;»
-          </p>
-          <p className="font-rajdhaniRegular text-clearColor/50 max-w-2xl mt-4 leading-relaxed">
-            Ma méthode repose sur trois piliers : personnalisation,
-            progressivité, et plaisir. Dans le cockpit comme sur le terrain, j'ai
-            appris que la performance durable passe par la tête autant que par le
-            corps. Je vous apporte cette même exigence — adaptée à votre rythme, à
-            vos objectifs, à votre vie.
-          </p>
         </div>
 
         <hr className="border-darkColor/10 my-12" />
@@ -241,12 +228,6 @@ export default async function Home() {
         {/* Sports pratiqués */}
         <Eyebrow>Pratique personnelle</Eyebrow>
         <Title>Les sports que je pratique.</Title>
-        <p className="font-rajdhaniRegular text-darkColor/70 max-w-2xl mb-6">
-          Du rugby de haut niveau au pilotage d'hélicoptère, j'ai appris que la
-          discipline, la gestion du stress et la lecture du terrain sont aussi
-          importantes que la condition physique. C'est cette vision globale que
-          j'apporte à chaque séance.
-        </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {SPORTS.map((s) => (
             <div
@@ -275,10 +256,16 @@ export default async function Home() {
         </p>
         <div className="flex flex-wrap gap-3 justify-center">
           <a
-            href="/services"
+            href="/contact"
             className="bg-mainColor text-clearColor rounded-xl py-3 px-7 font-calSans text-lg hover:opacity-90 duration-150"
           >
-            Voir les services
+            Bilan gratuit →
+          </a>
+          <a
+            href="/services"
+            className="border border-clearColor/20 text-clearColor/80 rounded-xl py-3 px-7 font-calSans text-lg hover:border-clearColor/50 duration-150"
+          >
+            Mes services
           </a>
         </div>
       </section>

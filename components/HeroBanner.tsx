@@ -9,6 +9,9 @@ const bgTheme = [
   "/img/bg/bg-endurance.webp",
 ];
 
+// Mots synchronisés avec chaque image de fond (même ordre que bgTheme).
+const words = ["Équilibre", "Force", "Endurance"];
+
 const chips = [
   { label: "Certifié Qualitop", accent: true },
   { label: "Membre EREPS", accent: false },
@@ -27,8 +30,8 @@ function HeroBanner() {
   }, []);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
-      {/* Fond : images qui défilent */}
+    <section className="relative w-full h-screen overflow-hidden bg-darkColor">
+      {/* Fond : images qui défilent — couvre tout l'écran sans déformation */}
       <img
         className="absolute inset-0 w-full h-full object-cover"
         src={bgTheme[currentBgIndex]}
@@ -37,59 +40,67 @@ function HeroBanner() {
       />
       {/* Voile sombre pour la lisibilité du texte */}
       <div
-        className="absolute inset-0 bg-gradient-to-r from-darkColor/90 via-darkColor/70 to-darkColor/40"
+        className="absolute inset-0 bg-darkColor/55"
         aria-hidden="true"
       />
 
-      {/* Contenu (comme l'exemple) */}
-      <div className="relative z-10 h-full max-w-5xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="flex flex-col justify-center">
-          <p className="font-rajdhaniRegular text-sm font-bold uppercase tracking-widest text-[#6b7cff] mb-4">
+      {/* Mot central qui défile avec les images */}
+      <div className="absolute inset-0 z-10 flex items-center justify-center px-6 pointer-events-none">
+        <span
+          key={currentBgIndex}
+          className="hero-word font-leagueSpartan font-bold text-7xl md:text-[10rem] text-clearColor uppercase tracking-tight leading-none text-center drop-shadow-xl"
+        >
+          {words[currentBgIndex]}
+        </span>
+      </div>
+
+      {/* Dégradé bas pour la lisibilité des infos */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-darkColor to-transparent z-10 pointer-events-none"
+        aria-hidden="true"
+      />
+
+      {/* Infos en bas */}
+      <div className="absolute inset-x-0 bottom-0 z-20">
+        <div className="max-w-5xl mx-auto px-6 pb-10 md:pb-14">
+          <p className="font-rajdhaniRegular text-sm font-bold uppercase tracking-widest text-[#7c89ff] mb-2">
             Personal Trainer · Fribourg, Suisse 🇨🇭
           </p>
-          <h1 className="font-leagueSpartan font-bold text-6xl md:text-8xl text-clearColor uppercase leading-none">
+          <h1 className="font-leagueSpartan font-bold text-3xl md:text-4xl text-clearColor uppercase leading-none">
             Arnaud
           </h1>
-          <p className="font-rajdhaniRegular uppercase tracking-widest text-clearColor/50 text-xl md:text-2xl mt-2 mb-7">
+          <p className="font-rajdhaniRegular uppercase tracking-widest text-clearColor/70 text-sm md:text-base mt-1.5 mb-4">
             Coach &amp; Personal Trainer
           </p>
-          <p className="font-rajdhaniRegular text-clearColor/70 text-lg max-w-xl leading-relaxed mb-7">
+          <p className="font-rajdhaniRegular text-clearColor/80 text-base max-w-lg leading-relaxed mb-5">
             De l'équipe de France junior de rugby à XIII au cockpit d'un
             hélicoptère, puis au coaching sportif —{" "}
             <strong className="text-clearColor font-normal">
               trois vies, un même fil conducteur : le dépassement de soi.
-            </strong>{" "}
-            Aujourd'hui je mets ce parcours au service de votre progression.
+            </strong>
           </p>
-          <div className="flex flex-wrap gap-2 mb-8">
-            {chips.map((c) => (
-              <span
-                key={c.label}
-                className={`font-rajdhaniRegular text-sm rounded-full px-3 py-1 border ${
-                  c.accent
-                    ? "border-[#5b6bff]/50 text-[#7c89ff]"
-                    : "border-clearColor/15 text-clearColor/65"
-                }`}
-              >
-                {c.label}
-              </span>
-            ))}
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap gap-2">
+              {chips.map((c) => (
+                <span
+                  key={c.label}
+                  className={`font-rajdhaniRegular text-sm rounded-full px-3 py-1 border ${
+                    c.accent
+                      ? "border-[#5b6bff]/50 text-[#7c89ff]"
+                      : "border-clearColor/20 text-clearColor/75"
+                  }`}
+                >
+                  {c.label}
+                </span>
+              ))}
+            </div>
+            <a
+              href="/contact"
+              className="bg-mainColor text-clearColor rounded-lg py-2.5 px-5 font-calSans hover:opacity-90 duration-150"
+            >
+              Réserver un bilan →
+            </a>
           </div>
-          <a
-            href="/contact"
-            className="self-start bg-mainColor text-clearColor rounded-xl py-3 px-6 font-calSans text-lg hover:opacity-90 duration-150"
-          >
-            Réserver un bilan →
-          </a>
-        </div>
-
-        {/* Photo d'Arnaud */}
-        <div className="hidden md:flex items-end justify-end">
-          <img
-            src="/img/intro/profile-coach.webp"
-            alt="Arnaud — Personal Trainer à Fribourg"
-            className="w-[300px] h-[440px] object-cover object-top rounded-t-2xl border border-clearColor/10 shadow-2xl"
-          />
         </div>
       </div>
     </section>
