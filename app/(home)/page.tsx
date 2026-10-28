@@ -24,11 +24,12 @@ const SIDE_CARDS = [
     title: "Coaching à distance",
     text: "Programmes structurés partout en Suisse",
   },
-  {
-    icon: "🏥",
-    title: "Publics fragilisés",
-    text: "Seniors, rééducation et profils spécifiques",
-  },
+  // Désactivé temporairement
+  // {
+  //   icon: "🏥",
+  //   title: "Publics fragilisés",
+  //   text: "Seniors, rééducation et profils spécifiques",
+  // },
 ];
 
 const MISSION = [
@@ -108,17 +109,24 @@ export default async function Home() {
       <ImageCarousel />
 
       {/* ── Bandeau chiffres ── */}
-      <section className="bg-gradient-to-br from-darkColor to-mainColor py-8 px-6 flex flex-wrap justify-center gap-x-12 gap-y-6">
-        {STATS.map((s) => (
-          <div key={s.label} className="text-center text-clearColor max-w-[200px]">
-            <div className="font-leagueSpartan font-bold text-4xl md:text-5xl leading-none">
-              {s.num}
+      <section className="bg-gradient-to-br from-darkColor to-mainColor py-8 px-6 flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+        <img
+          src="/img/intro/profile-coach.webp"
+          alt="Arnaud — coach Absolute Motion"
+          className="w-36 h-36 md:w-44 md:h-44 object-cover object-top rounded-full border-4 border-clearColor/20 shrink-0"
+        />
+        <div className="flex flex-wrap justify-center gap-x-12 gap-y-6">
+          {STATS.map((s) => (
+            <div key={s.label} className="text-center text-clearColor max-w-[200px]">
+              <div className="font-leagueSpartan font-bold text-4xl md:text-5xl leading-none">
+                {s.num}
+              </div>
+              <div className="font-rajdhaniRegular text-xs uppercase tracking-wide opacity-80 mt-1">
+                {s.label}
+              </div>
             </div>
-            <div className="font-rajdhaniRegular text-xs uppercase tracking-wide opacity-80 mt-1">
-              {s.label}
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* ── Corps ── */}
