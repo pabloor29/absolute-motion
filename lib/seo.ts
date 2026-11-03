@@ -25,5 +25,5 @@ export const SITE_KEYWORDS = [
 export const DEFAULT_DESCRIPTION =
   "Absolute Motion — Arnaud, personal trainer et small group trainer à Fribourg (Suisse). Coaching personnalisé pour la remise en forme, la force, l'endurance, l'équilibre, la nutrition et la préparation mentale.";
 
-// Shared Open Graph image used site-wide.
-export const OG_IMAGE = "/img/bg/bg-coach.webp";
+// Shared Open Graph image used site-wide (link preview banner).
+export const OG_IMAGE = "/img/link-banner.webp";

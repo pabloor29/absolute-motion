@@ -9,7 +9,7 @@ import {
   type HybridRow,
   type Offer,
 } from '@/lib/data'
-import { SITE_URL } from '@/lib/seo'
+import { OG_IMAGE, SITE_URL } from '@/lib/seo'
 import type { Metadata } from 'next'
 import React from 'react'
 
@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     description:
       'Personal training, coaching à distance et formule hybride à Fribourg. De 50.- à 150.- CHF.',
     url: '/services',
+    images: [OG_IMAGE],
   },
 }
 

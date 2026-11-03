@@ -2,6 +2,7 @@ import ContactForm from "@/components/ContactForm";
 import CustomHeroBannerImage from "@/components/CustomHeroBannerImage";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { OG_IMAGE } from "@/lib/seo";
 import type { Metadata } from "next";
 import React from "react";
 
@@ -20,6 +21,7 @@ export const metadata: Metadata = {
     description:
       "Contactez Absolute Motion à Fribourg pour votre coaching sur mesure.",
     url: "/contact",
+    images: [OG_IMAGE],
   },
 };
 
