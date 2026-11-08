@@ -4,7 +4,16 @@ import ImageCarousel from "@/components/ImageCarousel";
 import Navbar from "@/components/Navbar";
 import ReviewsSection from "@/components/ReviewsSection";
 import { getApprovedReviews, getContent } from "@/lib/data";
+import { SITE_URL, SITE_NAME } from "@/lib/seo";
 import { Analytics } from "@vercel/analytics/react";
+
+// "Pablo Ortega" → "Pablo O." — mirrors the visible author label so the
+// Review schema matches on-page content (Google requirement).
+function displayName(full: string): string {
+  const parts = full.trim().split(/\s+/).filter(Boolean);
+  if (parts.length < 2) return parts[0] ?? "";
+  return `${parts[0]} ${parts[parts.length - 1][0].toUpperCase()}.`;
+}
 
 const STATS = [
   { num: "8", label: "saisons de Rugby à XIII — équipe de France junior & universitaire" },
@@ -97,13 +106,56 @@ function Title({ children }: { children: React.ReactNode }) {
 }
 
 export default async function Home() {
-  const [content, reviews] = await Promise.all([
+  const [content, allReviews] = await Promise.all([
     getContent(),
-    getApprovedReviews(6),
+    getApprovedReviews(),
   ]);
+  const reviews = allReviews.slice(0, 6);
+
+  // Local-SEO booster: AggregateRating + Review markup, keyed to the same
+  // #business node declared in the root layout so Google merges them. Only
+  // the reviews actually rendered below are marked up. Average/count use the
+  // full approved set. Emitted only when reviews exist (empty rating = invalid).
+  const reviewsJsonLd =
+    allReviews.length > 0
+      ? {
+          "@context": "https://schema.org",
+          "@type": ["LocalBusiness", "HealthAndBeautyBusiness", "SportsActivityLocation"],
+          "@id": `${SITE_URL}/#business`,
+          name: SITE_NAME,
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: (
+              allReviews.reduce((sum, r) => sum + r.rating, 0) / allReviews.length
+            ).toFixed(1),
+            reviewCount: allReviews.length,
+            bestRating: 5,
+            worstRating: 1,
+          },
+          review: reviews.map((r) => ({
+            "@type": "Review",
+            author: { "@type": "Person", name: displayName(r.author_name) },
+            datePublished: r.review_date,
+            ...(r.title ? { name: r.title } : {}),
+            ...(r.body ? { reviewBody: r.body } : {}),
+            reviewRating: {
+              "@type": "Rating",
+              ratingValue: r.rating,
+              bestRating: 5,
+              worstRating: 1,
+            },
+          })),
+        }
+      : null;
 
   return (
     <main className="flex flex-col bg-clearColor">
+      {reviewsJsonLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(reviewsJsonLd) }}
+        />
+      )}
       <Navbar />
       <HeroBanner />
       <ImageCarousel />
